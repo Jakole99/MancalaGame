@@ -30,5 +30,10 @@ public class GameSettings
         player2 = new Player(player2Name, Player.Numb.P2);
     }
 
+    private void makeBoard(int pits, int stones, Game.Variant variant)
+    {
+        BoardFactory boardFactory = new BoardFactory();
+        GameBoard = boardFactory.GetBoard(pits, stones, variant);
+    }
 }
 

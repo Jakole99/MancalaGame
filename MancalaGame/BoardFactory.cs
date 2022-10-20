@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 public class BoardFactory 
 { 
 
-    public Board GetBoard(int pits, int stones, Enum gameVariant)
+    public Board GetBoard(int pits, int stones, Game.Variant variant)
     {
-       if (gameVariant = )
+       if (variant == Game.Variant.Mancala)
             return new Mancala(pits, stones);
     }
 

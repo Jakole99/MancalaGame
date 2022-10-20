@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 public class Game
 {
-    enum GameVariant
+    public enum Variant
     {
-
+        Mancala
     }
 
     public Game()
