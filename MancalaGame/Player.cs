@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 public class Player
 {
-    public enum P1P2
+    public enum Numb
     {
         P1,
         P2
     }
 
     public string PlayerName;
-    public P1P2 PlayerNumb;
+    public Numb PlayerNumb;
 
-    public Player(string name, P1P2 PlayerNumb)
+    public Player(string name, Numb PlayerNumb)
     {
         PlayerName = name;
         this.PlayerNumb = PlayerNumb;
