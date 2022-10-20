@@ -8,9 +8,9 @@ public abstract class Board
 {
     public Pit[] Pits;
 
-    public Board(int size)
+    public Board(int pits, int stones)
     {
-        Pits = new Pit[size];
+        Pits = new Pit[pits];
     }
 
     public abstract void FillBoard();
