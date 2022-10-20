@@ -9,7 +9,9 @@ public class BoardFactory
 
     public Board GetBoard(int pits, int stones, Game.Variant variant)
     {
-       if (variant == Game.Variant.Mancala)
+       //if (variant == Game.Variant.Mancala)
+       //     return new Mancala(pits, stones);
+       //else
             return new Mancala(pits, stones);
     }
 
