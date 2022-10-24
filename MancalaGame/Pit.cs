@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 public class Pit
 {
-    private Player owner;
+    private Player.Numb owner;
     private int stones;
     public bool IsHomePit = false;
 
 
-    public Pit(int stones, Player owner, bool nyumba)
+    public Pit(int stones, Player.Numb owner, bool nyumba)
     {
         this.stones = stones;
         this.owner = owner;
@@ -23,7 +23,7 @@ public class Pit
         return stones;
     }
 
-    public Player GetOwner()
+    public Player.Numb GetOwner()
     {
         return owner;
     }

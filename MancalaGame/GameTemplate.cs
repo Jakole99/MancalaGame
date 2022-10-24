@@ -13,6 +13,7 @@ public abstract class GameTemplate
         // MoveResult();
         // CheckEndCondition();
         // GetWinner();
+        return null;
     }
 
     public abstract Player MoveResult(Board board, Player player);

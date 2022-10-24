@@ -10,9 +10,10 @@ public class GameSettings
     private Player player2;
     public Board GameBoard;
 
-    public GameSettings()
+    public GameSettings(int pits, int stones, Game.Variant gameVariant, string player1Name, string player2Name)
     {
-
+        makePlayers(player1Name, player2Name);
+        makeBoard(pits, stones, gameVariant);
     }
 
     public Player GetPlayer(Player.Numb playerNumb)
