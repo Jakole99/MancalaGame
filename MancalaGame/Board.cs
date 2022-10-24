@@ -21,11 +21,11 @@ public abstract class Board
     }
     public virtual void MoveStones()
     {
-
+        
     }
     public virtual void DrawBoard()
     {
-
+        
     }
 
 } 

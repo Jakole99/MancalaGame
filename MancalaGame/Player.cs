@@ -9,7 +9,8 @@ public class Player
     public enum Numb
     {
         P1,
-        P2
+        P2,
+        None
     }
 
     public string PlayerName;
