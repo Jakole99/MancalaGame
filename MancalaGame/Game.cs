@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 public class Game
 {
-    GameSettings gameSettings;
 
+    static public GameSettings gameSettings;
     public enum Variant
     {
         Mancala
