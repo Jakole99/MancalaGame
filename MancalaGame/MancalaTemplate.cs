@@ -39,6 +39,7 @@ public class MancalaTemplate : GameTemplate
     public override void DoTurn(Board board, Player player) 
     {
         Console.WriteLine("Choose a number to pick a non-empty pit:");
+        return null;
 
 
         int chosenNumber = Convert.ToInt32(Console.ReadLine());
@@ -71,7 +72,7 @@ public class MancalaTemplate : GameTemplate
     {
 
         ///Now we can move the stones correclty.
-        board.MoveStones();
+        board.MoveStones(0, player.PlayerNumb);
 
         ///Now we check what happens next, what is the result of that move which has been played.
 

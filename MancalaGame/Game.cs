@@ -10,7 +10,9 @@ public class Game
     static public GameSettings gameSettings;
     public enum Variant
     {
-        Mancala
+        Mancala,
+        Wari,
+        
     }
 
     public Game()
