@@ -35,6 +35,8 @@ public abstract class Board
     {
         
     }
+
+
     public virtual void DrawBoard()
     {
         Pit homePitP1 = Pits[(Pits.Length - 1)];
