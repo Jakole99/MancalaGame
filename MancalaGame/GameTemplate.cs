@@ -17,8 +17,8 @@ public abstract class GameTemplate
         return playGame(board, MoveResult(board, player, DoTurn(board, player)));
     }
 
-    public abstract int DoTurn(Board board, Player player);
-    public abstract Player MoveResult(Board board, Player player, int chosenNumber);
+    public abstract Pit DoTurn(Board board, Player player);
+    public abstract Player MoveResult(Board board, Player player, Pit EndPit);
     public abstract bool CheckEndCondition(Board board);
     public abstract Player GetWinner(Board board);
 }

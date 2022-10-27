@@ -36,13 +36,14 @@ public class MancalaTemplate : GameTemplate
         }
     }
 
-    public override int DoTurn(Board board, Player player) 
+    public override Pit DoTurn(Board board, Player player) 
     {
         Console.WriteLine("Choose a number to pick a non-empty pit:");
 
 
-
+        
         int chosenNumber = Convert.ToInt32(Console.ReadLine());
+        Pit EndPit = null;
 
         //We first need to check if a player chooses a valid number, aka plays from their pits.
         if (chosenNumber < 0)
@@ -62,14 +63,14 @@ public class MancalaTemplate : GameTemplate
         }
         else 
         { 
-            board.MoveStones(); 
+            EndPit = board.MoveStones(chosenNumber, player.PlayerNumb); 
         }
 
-        return chosenNumber;
+        return EndPit;
         
     }
 
-    public override Player MoveResult(Board board, Player player, int chosenNumber)
+    public override Player MoveResult(Board board, Player player, Pit EndPit)
     {
 
         ///Now we can move the stones correclty.
@@ -78,22 +79,17 @@ public class MancalaTemplate : GameTemplate
         ///Now we check what happens next, what is the result of that move which has been played.
 
         ///Last Stone ends in Nyumba of the player. Player can play again.
-        if (board.GetLastPit().IsHome() == true) 
+        if (EndPit.IsHomePit == true) 
         {
             return player;
         }
 
-        ///Last Stone ends in a non-empty pit. Move continues from that last pit.
-        if (board.GetLastPit().GetStones != 0)
-        {
-            board.MoveStones();
-        }
 
         ///Last Stone ends in an empty pit
-        if (board.GetLastPit().GetStones == 0)
+        if (EndPit.GetStoneAmount() == 0)
         {
             /// Its the players pit
-            if (board.GetLastPit().owner == player)
+            if (EndPit.GetOwner() == player.PlayerNumb)
             {
                                               ///Last Stone ends in an empty Pit of the player and the opposite pit of the opponent is not empty
                                               ///, player grabs all stones from these two pits and collects them in their Nyumba.
@@ -105,7 +101,7 @@ public class MancalaTemplate : GameTemplate
             /// Its the opponents pit
             else
             {
-                return player.Next();         ///Last Stone ends in an empty Pit of the opponent. Next players turn.
+                //return player.Next();         ///Last Stone ends in an empty Pit of the opponent. Next players turn.
             }
 
         }

@@ -48,7 +48,7 @@ public abstract class Board
         stoneValue = Pits[startIndex].GetStoneAmount();
         Pits[startIndex].EmptyPit();
 
-        int currentIndex = 1;
+        int currentIndex = 0;
         for (int i = startIndex + 1; i < stoneValue + startIndex + 1; i++)
         {
             currentIndex = i % Pits.Length;
@@ -60,11 +60,12 @@ public abstract class Board
             }
             Pits[currentIndex].AddStones(1);
         }
-        
+
         if (Pits[currentIndex].GetStoneAmount() != 1 && !Pits[currentIndex].IsHomePit)
         {
-            MoveStones(currentIndex, player);
+            return MoveStones(currentIndex, player);
         }
+        
         return Pits[currentIndex];
     }
 
