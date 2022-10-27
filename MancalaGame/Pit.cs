@@ -9,12 +9,14 @@ public class Pit
     private Player.Numb owner;
     private int stones;
     public bool IsHomePit = false;
+    private int index;
 
 
-    public Pit(int stones, Player.Numb owner, bool nyumba)
+    public Pit(int stones, Player.Numb owner, bool nyumba, int index)
     {
         this.stones = stones;
         this.owner = owner;
+        this.index = index;
         IsHomePit = nyumba;
     }
 
@@ -36,6 +38,11 @@ public class Pit
     public void RemoveStones(int amount)
     {
         stones -= amount;
+    }
+
+    public void EmptyPit()
+    {
+        stones = 0;
     }
 
 }

@@ -13,32 +13,103 @@ public abstract class Board
     {
         Pits = new Pit[pits];
         MakeBoard(pits);
+        FillBoard(stones);
     }
 
-    public abstract void FillBoard(int stones);
+    public virtual void FillBoard(int stones)
+    {
+        foreach (Pit p in Pits)
+        {
+            if (!p.IsHomePit)
+                p.AddStones(stones);
+        }
+    }
 
     public virtual void MakeBoard(int pitAmount)
     {
         int rowNormals = (pitAmount - 2) / 2;
         for (int i = 0; i < rowNormals; i++)
         {
-            Pits[i] = new Pit(0, Player.Numb.P1, false);
+            Pits[i] = new Pit(0, Player.Numb.P1, false, i);
         }
-        Pits[rowNormals] = new Pit(0, Player.Numb.P1, true);
+        Pits[rowNormals] = new Pit(0, Player.Numb.P1, true, rowNormals);
         for (int j = pitAmount/2; j < pitAmount/2 + rowNormals; j++)
         {
-            Pits[j] = new Pit(0, Player.Numb.P2, false);
+            Pits[j] = new Pit(0, Player.Numb.P2, false, j);
         }
-        Pits[pitAmount - 1] = new Pit(0, Player.Numb.P2, true);
+        Pits[pitAmount - 1] = new Pit(0, Player.Numb.P2, true, pitAmount - 1);
     }
-    public virtual void MoveStones()
+    
+    // Moves the stones in a counterclockwise motion skipping homepits of the opposing player
+    public virtual void MoveStones(int numb, Player.Numb player)
     {
-        
+        int stoneValue;
+        int startingIndex;
+
+        if (player == Player.Numb.P1)
+        {
+            startingIndex = numb;
+        }
+        else if (player == Player.Numb.P2)
+        {
+            startingIndex = numb + Pits.Length/2;
+        }
+        else
+            return;
+
+        stoneValue = Pits[startingIndex - 1].GetStoneAmount();
+        Pits[startingIndex - 1].EmptyPit();
+
+        int currentIndex;
+        for (int i = startingIndex; i < stoneValue + startingIndex; i++)
+        {
+            currentIndex = i % Pits.Length;
+
+            if (Pits[currentIndex].GetOwner() != player && Pits[currentIndex].IsHomePit)
+            {
+                stoneValue += 1;
+                continue;
+            }
+            Pits[currentIndex].AddStones(1);
+        }
     }
+
+    // Returns the final pit of a move
+    public virtual Pit GetLastMovePit(int numb, Player.Numb player)
+    {
+        int stoneValue;
+        int startingIndex;
+
+        if (player == Player.Numb.P1)
+        {
+            startingIndex = numb;
+        }
+        else if (player == Player.Numb.P2)
+        {
+            startingIndex = numb + Pits.Length / 2;
+        }
+        else
+            return null;
+
+        stoneValue = Pits[startingIndex - 1].GetStoneAmount();
+
+        int currentIndex = 0;
+        for (int i = startingIndex; i < stoneValue + startingIndex; i++)
+        {
+            currentIndex = i % Pits.Length;
+            if (Pits[currentIndex].GetOwner() != player && Pits[currentIndex].IsHomePit)
+            {
+                stoneValue += 1;
+                continue;
+            }
+        }
+        return Pits[currentIndex];
+    }
+
     public virtual void DrawBoard()
     {
-        Pit homePitP1 = Pits[(Pits.Length - 1)];
-        Pit homePitP2 = Pits[(Pits.Length / 2 - 1)];
+        Pit homePitP2 = Pits[(Pits.Length - 1)];
+        Pit homePitP1 = Pits[(Pits.Length / 2 - 1)];
 
         string row0 = "       ";
         string row1 = "_______";
@@ -89,6 +160,7 @@ public abstract class Board
 
     }
 
+    // helper function that takes an int and returns a string of an index of the right size for the draw function
     private string getIndexString(int numb)
     {
         if (numb > 9999)
@@ -106,6 +178,7 @@ public abstract class Board
         return retrunNumb;
     }
 
+    // helper function that takes a int and returns a string of lenght three to be used in the draw function
     private string numbToString(int numb)
     {
         if (numb > 999)
