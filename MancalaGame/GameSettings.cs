@@ -24,6 +24,14 @@ public class GameSettings
             return player2;
     }
 
+    public Player NextPlayer(Player.Numb playerNumb)
+    {
+        if (playerNumb == Player.Numb.P1)
+            return player2;
+        else
+            return player1;
+    }
+
     private void makePlayers(string player1Name, string player2Name)
     {
         player1 = new Player(player1Name, Player.Numb.P1);
