@@ -41,27 +41,15 @@ public abstract class Board
     }
     
     // Moves the stones in a counterclockwise motion skipping homepits of the opposing player
-    public virtual void MoveStones(int numb, Player.Numb player)
+    public virtual Pit MoveStones(int startIndex, Player.Numb player)
     {
         int stoneValue;
-        int startingIndex;
 
-        if (player == Player.Numb.P1)
-        {
-            startingIndex = numb;
-        }
-        else if (player == Player.Numb.P2)
-        {
-            startingIndex = numb + Pits.Length/2;
-        }
-        else
-            return;
+        stoneValue = Pits[startIndex].GetStoneAmount();
+        Pits[startIndex].EmptyPit();
 
-        stoneValue = Pits[startingIndex - 1].GetStoneAmount();
-        Pits[startingIndex - 1].EmptyPit();
-
-        int currentIndex;
-        for (int i = startingIndex; i < stoneValue + startingIndex; i++)
+        int currentIndex = 1;
+        for (int i = startIndex + 1; i < stoneValue + startIndex + 1; i++)
         {
             currentIndex = i % Pits.Length;
 
@@ -72,39 +60,14 @@ public abstract class Board
             }
             Pits[currentIndex].AddStones(1);
         }
-    }
-
-    // Returns the final pit of a move
-    public virtual Pit GetLastMovePit(int numb, Player.Numb player)
-    {
-        int stoneValue;
-        int startingIndex;
-
-        if (player == Player.Numb.P1)
+        
+        if (Pits[currentIndex].GetStoneAmount() != 1 && !Pits[currentIndex].IsHomePit)
         {
-            startingIndex = numb;
-        }
-        else if (player == Player.Numb.P2)
-        {
-            startingIndex = numb + Pits.Length / 2;
-        }
-        else
-            return null;
-
-        stoneValue = Pits[startingIndex - 1].GetStoneAmount();
-
-        int currentIndex = 0;
-        for (int i = startingIndex; i < stoneValue + startingIndex; i++)
-        {
-            currentIndex = i % Pits.Length;
-            if (Pits[currentIndex].GetOwner() != player && Pits[currentIndex].IsHomePit)
-            {
-                stoneValue += 1;
-                continue;
-            }
+            MoveStones(currentIndex, player);
         }
         return Pits[currentIndex];
     }
+
 
     public virtual void DrawBoard()
     {

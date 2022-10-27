@@ -9,7 +9,7 @@ public class Pit
     private Player.Numb owner;
     private int stones;
     public bool IsHomePit = false;
-    private int index;
+    public int index;
 
 
     public Pit(int stones, Player.Numb owner, bool nyumba, int index)
