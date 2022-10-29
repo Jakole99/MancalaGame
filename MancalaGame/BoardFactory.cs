@@ -11,8 +11,13 @@ public class BoardFactory
     {
         if (variant == Game.Variant.Mancala)
             return new MancalaBoard(pits, stones);
+
         else if (variant == Game.Variant.Wari)
             return new WariBoard(pits, stones);
+
+        else if (variant == Game.Variant.WarCali)
+            return new WarCali(pits, stones);
+
         else return null;
 
     }

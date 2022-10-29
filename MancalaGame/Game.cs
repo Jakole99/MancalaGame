@@ -12,7 +12,7 @@ public class Game
     {
         Mancala,
         Wari,
-        
+        WarCali
     }
 
     public Game()
