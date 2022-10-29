@@ -40,73 +40,71 @@ public class MancalaTemplate : GameTemplate
     {
         Console.WriteLine("Choose a number to pick a non-empty pit:");
 
-
         
         int chosenNumber = Convert.ToInt32(Console.ReadLine());
-        Pit EndPit = null;
 
         //We first need to check if a player chooses a valid number, aka plays from their pits.
         if (chosenNumber < 0)
         {
             Console.WriteLine("Invalid option");
-            DoTurn(board, player);
+            return DoTurn(board, player);
         }
         else if (player == Game.gameSettings.GetPlayer(Player.Numb.P1) && chosenNumber > middleOfTheBoard)
         {
             Console.WriteLine("Invalid option");
-            DoTurn(board, player);
+            return DoTurn(board, player);
         }
         else if (player == Game.gameSettings.GetPlayer(Player.Numb.P2) && chosenNumber < middleOfTheBoard || chosenNumber > endOfTheBoard)
         {
             Console.WriteLine("Invalid option");
-            DoTurn(board, player);
-        }
-        else 
-        { 
-            EndPit = board.MoveStones(chosenNumber, player.PlayerNumb); 
+            return DoTurn(board, player);
         }
 
-        return EndPit;
+        return board.MoveStones(chosenNumber, player.PlayerNumb);
         
     }
 
     public override Player MoveResult(Board board, Player player, Pit EndPit)
     {
-
-        ///Now we can move the stones correclty.
-        //board.MoveStones(chosenNumber, player.PlayerNumb); wordt al gedaan bij doTurn.
-
         ///Now we check what happens next, what is the result of that move which has been played.
 
         ///Last Stone ends in Nyumba of the player. Player can play again.
-        if (EndPit.IsHomePit == true) 
+        if (EndPit.IsHomePit) 
         {
             return player;
         }
 
 
-        ///Last Stone ends in an empty pit
-        if (EndPit.GetStoneAmount() == 0)
+        ///Last Stone ends in an empty pit and Its the players pit
+        if (EndPit.GetStoneAmount() == 1 && EndPit.GetOwner() == player.PlayerNumb)  //The Last stone ended in here, that's why we check for == 1.
         {
-            /// Its the players pit
-            if (EndPit.GetOwner() == player.PlayerNumb)
-            {
-                                              ///Last Stone ends in an empty Pit of the player and the opposite pit of the opponent is not empty
-                                              ///, player grabs all stones from these two pits and collects them in their Nyumba.
-                                              
+            int oppositeStoneAmount = EndPit.GetOppositePit().GetStoneAmount();
 
-                                              ///Last Stone ends in an empty Pit of the player and the opposite pit of the opponent is empty
-                                              ///, next players turn.
-            }
-            /// Its the opponents pit
-            else
+            ///Last Stone ends in an empty Pit of the player and the opposite pit of the opponent is not empty
+            ///, player grabs all stones from these two pits and collects them in their Nyumba.
+            ///
+            if (oppositeStoneAmount != 0)
             {
-                //return player.Next();         ///Last Stone ends in an empty Pit of the opponent. Next players turn.
+                EndPit.GetOppositePit().EmptyPit();
+
+                EndPit.AddStones(oppositeStoneAmount);
+
             }
 
+
+            ///Last Stone ends in an empty Pit of the player and the opposite pit of the opponent is empty
+            ///, next players turn.
+            return Game.gameSettings.NextPlayer(player.PlayerNumb);
+
+          
+        }
+        /// Its the opponents pit
+        else
+        {
+            return Game.gameSettings.NextPlayer(player.PlayerNumb);      ///Last Stone ends in an empty Pit of the opponent. Next players turn.
         }
 
-        return null;
+
         ///Player has no more stones left in their regular pits.
         //al gedaan bij CheckEndCondition
         ///Player with the most stones.

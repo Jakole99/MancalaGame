@@ -40,7 +40,7 @@ public abstract class Board
         Pits[pitAmount - 1] = new Pit(0, Player.Numb.P2, true, pitAmount - 1);
     }
     
-    // Moves the stones in a counterclockwise motion skipping homepits of the opposing player
+    // Moves the stones in a counterclockwise motion skipping homepits of the opposing player, returns the last Pit where the last Stone landed.
     public virtual Pit MoveStones(int startIndex, Player.Numb player)
     {
         int stoneValue;
