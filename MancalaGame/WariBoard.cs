@@ -11,27 +11,15 @@ public class WariBoard : Board
 
     }
 
-    public override Pit MoveStones(int numb, Player.Numb player)
+    public override Pit MoveStones(int startIndex, Player.Numb player)
     {
         int stoneValue;
-        int startingIndex;
 
-        if (player == Player.Numb.P1)
-        {
-            startingIndex = numb;
-        }
-        else if (player == Player.Numb.P2)
-        {
-            startingIndex = numb + Pits.Length / 2;
-        }
-        else
-            return null;
-
-        stoneValue = Pits[startingIndex - 1].GetStoneAmount();
-        Pits[startingIndex - 1].EmptyPit();
+        stoneValue = Pits[startIndex].GetStoneAmount();
+        Pits[startIndex].EmptyPit();
 
         int currentIndex = 0;
-        for (int i = startingIndex; i < stoneValue + startingIndex; i++)
+        for (int i = startIndex + 1; i < stoneValue + startIndex + 1; i++)
         {
             currentIndex = i % Pits.Length;
 
