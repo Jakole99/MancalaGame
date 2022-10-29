@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 public class Game
 {
-
+    private UI ui = new UI();
     static public GameSettings gameSettings;
     public enum Variant
     {
@@ -22,26 +22,23 @@ public class Game
 
     public void StartGame()
     {
-        GetGameSettings();
+        gameSettings = GetGameSettings();
+
     }
 
-    public void GetGameSettings()
+
+    
+
+    private GameSettings GetGameSettings()
     {
-        int pits = Int32.Parse(Console.ReadLine());
-        int stones = Int32.Parse(Console.ReadLine());
+        string player1Name = ui.AskPlayerName();
+        string player2Name = ui.AskPlayerName();
 
-        Game.Variant gamevariant;
-        int variant = Int32.Parse(Console.ReadLine());
-        if (variant == 1)
-            gamevariant = Game.Variant.Mancala;
-        else
-            return;
+        Variant gameVariant = ui.AskGameVariant();
+        int pits = ui.AskPitAmount();
+        int stones = ui.AskStoneAmount();
 
-        string player1name = Console.ReadLine();
-        string player2name = Console.ReadLine();
-
-
-        gameSettings = new GameSettings(pits, stones, gamevariant, player1name, player2name);
+        return (new GameSettings(pits, stones, gameVariant, player1Name, player2Name));
     }
 
     
