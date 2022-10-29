@@ -39,7 +39,24 @@ public abstract class Board
         }
         Pits[pitAmount - 1] = new Pit(0, Player.Numb.P2, true, pitAmount - 1);
     }
-    
+
+    //methode to get the opposing pit on the board
+    public Pit GetOppositePit(Pit pit)
+    {
+        //get half the boards length
+        int Baseindex = Pits.Length - 2;
+
+        if (pit.index < Baseindex)
+        {
+            return Pits[pit.index + Baseindex - (pit.index*2)];
+        }
+        else
+        {
+            return Pits[pit.index - Baseindex - (2*(Baseindex - pit.index))];
+        }
+    }
+
+
     // Moves the stones in a counterclockwise motion skipping homepits of the opposing player
     public virtual Pit MoveStones(int startIndex, Player.Numb player)
     {
