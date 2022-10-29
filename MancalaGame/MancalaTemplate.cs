@@ -38,7 +38,10 @@ public class MancalaTemplate : GameTemplate
 
     public override Pit DoTurn(Board board, Player player) 
     {
-        Console.WriteLine("Choose a number to pick a non-empty pit:");
+
+        board.DrawBoard();
+
+        Console.WriteLine(player.PlayerName + " Choose a number to pick a non-empty pit:");
 
         
         int chosenNumber = Convert.ToInt32(Console.ReadLine());
@@ -78,16 +81,25 @@ public class MancalaTemplate : GameTemplate
         ///Last Stone ends in an empty pit and Its the players pit
         if (EndPit.GetStoneAmount() == 1 && EndPit.GetOwner() == player.PlayerNumb)  //The Last stone ended in here, that's why we check for == 1.
         {
-            int oppositeStoneAmount = EndPit.GetOppositePit().GetStoneAmount();
+            int oppositeStoneAmount = board.GetOppositePit(EndPit).GetStoneAmount();
 
             ///Last Stone ends in an empty Pit of the player and the opposite pit of the opponent is not empty
             ///, player grabs all stones from these two pits and collects them in their Nyumba.
             ///
             if (oppositeStoneAmount != 0)
             {
-                EndPit.GetOppositePit().EmptyPit();
+                board.GetOppositePit(EndPit).EmptyPit();
 
-                EndPit.AddStones(oppositeStoneAmount);
+                if (player.PlayerNumb == Player.Numb.P1)
+                {
+                    board.Pits[middleOfTheBoard].AddStones(oppositeStoneAmount);
+                }
+                else 
+                {
+                    board.Pits[endOfTheBoard].AddStones(oppositeStoneAmount);
+                }
+
+                EndPit.EmptyPit();
 
             }
 
