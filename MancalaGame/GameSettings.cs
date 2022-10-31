@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 public class GameSettings
 {
-    private Player player1;
-    private Player player2;
+    public Player player1 { get; private set; }
+    public Player player2 { get; private set; }
     public Board GameBoard;
+    public Game.Variant gameVariant{ get; private set;}
 
     public GameSettings(int pits, int stones, Game.Variant gameVariant, string player1Name, string player2Name)
     {
+        this.gameVariant = gameVariant;
         makePlayers(player1Name, player2Name);
         makeBoard(pits, stones, gameVariant);
     }

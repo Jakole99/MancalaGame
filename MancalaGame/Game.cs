@@ -8,6 +8,8 @@ public class Game
 {
     private UI ui = new UI();
     static public GameSettings gameSettings;
+    private GameTemplate gameTemplate;
+
     public enum Variant
     {
         Mancala,
@@ -23,10 +25,20 @@ public class Game
     public void StartGame()
     {
         gameSettings = GetGameSettings();
-
+        gameTemplate = GetGameTemplate(gameSettings.gameVariant);
+        gameTemplate.playGame(gameSettings.GameBoard, gameSettings.player1);
     }
 
+    private GameTemplate GetGameTemplate(Variant gameVariant)
+    {
+        if (gameVariant == Variant.Mancala)
+            return (new MancalaTemplate());
+        else if (gameVariant == Variant.Wari)
+            return null;
+        else
+            return null;
 
+    }
     
 
     private GameSettings GetGameSettings()

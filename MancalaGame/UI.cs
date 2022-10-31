@@ -15,14 +15,7 @@ public class UI
     {
         Console.WriteLine("Please enter a username");
 
-        string? username = Console.ReadLine();
-        if (username == null)
-        {
-            Console.WriteLine("nothing is not a name");
-            return AskPlayerName();
-        }
-        else
-            return username;
+        return (Console.ReadLine());
     }
 
     public int AskPitAmount()
@@ -30,7 +23,7 @@ public class UI
         Console.WriteLine("Please enter an amount of pits greater 2 you would like to use:");
         
         string? pitAmountString = Console.ReadLine();
-        if (pitAmountString != null)
+        if (pitAmountString == null)
         {
             Console.WriteLine("nothing is not a number");
             return AskPitAmount();
@@ -63,7 +56,7 @@ public class UI
         Console.WriteLine("Please enter the amount of stones you would like to be added to each pit");
         
         string? stoneAmountString = Console.ReadLine();
-        if (stoneAmountString != null)
+        if (stoneAmountString == null)
         {
             Console.WriteLine("nothing is not a number");
             return AskStoneAmount();

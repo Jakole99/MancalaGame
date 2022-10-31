@@ -47,24 +47,27 @@ public class MancalaTemplate : GameTemplate
         int chosenNumber = Convert.ToInt32(Console.ReadLine());
 
         //We first need to check if a player chooses a valid number, aka plays from their pits.
-        if (chosenNumber < 0)
+        if (chosenNumber <= 0)
         {
             Console.WriteLine("Invalid option");
             return DoTurn(board, player);
         }
-        else if (player == Game.gameSettings.GetPlayer(Player.Numb.P1) && chosenNumber > middleOfTheBoard)
-        {
-            Console.WriteLine("Invalid option");
-            return DoTurn(board, player);
-        }
-        else if (player == Game.gameSettings.GetPlayer(Player.Numb.P2) && chosenNumber < middleOfTheBoard || chosenNumber > endOfTheBoard)
+        else if (chosenNumber > (board.Pits.Length - 2)/2)
         {
             Console.WriteLine("Invalid option");
             return DoTurn(board, player);
         }
 
+        if (player.PlayerNumb == Player.Numb.P1)
+        {
+            chosenNumber -= 1;
+        }
+        else
+        {
+            chosenNumber += (board.Pits.Length / 2) - 1; 
+        }
+
         return board.MoveStones(chosenNumber, player.PlayerNumb);
-        
     }
 
     public override Player MoveResult(Board board, Player player, Pit EndPit)
