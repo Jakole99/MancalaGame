@@ -179,4 +179,19 @@ public abstract class Board
         return retrunNumb;
     }
 
+    public Pit GetHomePit (Player.Numb player)
+    {
+        int middleOfTheBoard = (Pits.Length - 1) / 2; //the first nyumba is the middle element of the Pit array, and the second nyumba is the last element
+        int endOfTheBoard = (Pits.Length - 1);
+
+        if (player == Player.Numb.P1)
+        {
+            return Pits[middleOfTheBoard];
+        }
+        else
+        {
+            return Pits[endOfTheBoard];
+        }
+    }
+
 } 

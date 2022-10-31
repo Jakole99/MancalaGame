@@ -24,9 +24,12 @@ public class Game
 
     public void StartGame()
     {
+       
+
         gameSettings = GetGameSettings();
         gameTemplate = GetGameTemplate(gameSettings.gameVariant);
-        gameTemplate.playGame(gameSettings.GameBoard, gameSettings.player1);
+        Player winner = gameTemplate.playGame(gameSettings.GameBoard, gameSettings.player1);
+        Console.WriteLine(winner.PlayerName + " has won! Good Job!");
     }
 
     private GameTemplate GetGameTemplate(Variant gameVariant)
@@ -34,7 +37,7 @@ public class Game
         if (gameVariant == Variant.Mancala)
             return (new MancalaTemplate());
         else if (gameVariant == Variant.Wari)
-            return null;
+            return (new WariTemplate());
         else
             return null;
 
