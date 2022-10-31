@@ -6,11 +6,6 @@ using System.Threading.Tasks;
 
 public class UI
 {
-    public UI()
-    {
-
-    }
-
     public string AskPlayerName()
     {
         Console.WriteLine("Please enter a username");
@@ -23,31 +18,25 @@ public class UI
         Console.WriteLine("Please enter an amount of pits greater 2 you would like to use:");
         
         string? pitAmountString = Console.ReadLine();
-        if (pitAmountString == null)
+        
+        int pitAmount;
+        
+        if (int.TryParse(pitAmountString, out pitAmount))
         {
-            Console.WriteLine("nothing is not a number");
-            return AskPitAmount();
-        }
-        else
-        {
-            int pitAmount;
-            if (int.TryParse(pitAmountString, out pitAmount))
+            if (pitAmount > 3 && pitAmount % 2 == 0)
             {
-                if (pitAmount > 3 && pitAmount % 2 == 0)
-                {
-                    return pitAmount;
-                }
-                else
-                {
-                    Console.WriteLine("invalid number, try again");
-                    return AskPitAmount();
-                }
+                return pitAmount;
             }
             else
             {
-                Console.WriteLine("this is not a number, try again");
+                Console.WriteLine("invalid number, try again");
                 return AskPitAmount();
             }
+        }
+        else
+        {
+            Console.WriteLine("this is not a number, try again");
+            return AskPitAmount();
         }
     }
 
@@ -56,64 +45,51 @@ public class UI
         Console.WriteLine("Please enter the amount of stones you would like to be added to each pit");
         
         string? stoneAmountString = Console.ReadLine();
-        if (stoneAmountString == null)
+        int stoneAmount;
+        if (int.TryParse(stoneAmountString, out stoneAmount))
         {
-            Console.WriteLine("nothing is not a number");
-            return AskStoneAmount();
-        }
-        else
-        {
-            int stoneAmount;
-            if (int.TryParse(stoneAmountString, out stoneAmount))
+            if (stoneAmount >= 0)
             {
-                if (stoneAmount >= 0)
-                {
-                    return stoneAmount;
-                }
-                else
-                {
-                    Console.WriteLine("Stone amount can't be negative, try again");
-                    return AskStoneAmount();
-                }
+                return stoneAmount;
             }
             else
             {
-                Console.WriteLine("this is not a number, try again");
+                Console.WriteLine("Stone amount can't be negative, try again");
                 return AskStoneAmount();
             }
         }
+        else
+        {
+            Console.WriteLine("this is not a number, try again");
+            return AskStoneAmount();
+        }
+        
     }
 
     public Game.Variant AskGameVariant()
     {
         Console.WriteLine("Please select which game you want to play, enter M/W/WC for Mancala, Wari or WarCali respectively");
         string? gameVariant = Console.ReadLine();
-        if (gameVariant == null)
+        
+        string GAMEVARIANT = gameVariant.ToUpper();
+        if (GAMEVARIANT == "M")
         {
-            Console.WriteLine("nothing is not a game type");
-            return AskGameVariant();
+            return Game.Variant.Mancala;
+        }
+        else if (GAMEVARIANT == "W")
+        {
+            return Game.Variant.Wari;
+        }
+        else if (GAMEVARIANT == "WC")
+        {
+            return Game.Variant.WarCali;
         }
         else
         {
-            string GAMEVARIANT = gameVariant.ToUpper();
-            if (GAMEVARIANT == "M")
-            {
-                return Game.Variant.Mancala;
-            }
-            else if (GAMEVARIANT == "W")
-            {
-                return Game.Variant.Wari;
-            }
-            else if (GAMEVARIANT == "WC")
-            {
-                return Game.Variant.WarCali;
-            }
-            else
-            {
-                Console.WriteLine("not a valid game type");
-                return AskGameVariant();
-            }
+            Console.WriteLine("not a valid game type");
+            return AskGameVariant();
         }
     }
+
 }
 

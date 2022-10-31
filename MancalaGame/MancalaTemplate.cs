@@ -44,30 +44,46 @@ public class MancalaTemplate : GameTemplate
         Console.WriteLine(player.PlayerName + " Choose a number to pick a non-empty pit:");
 
         
-        int chosenNumber = Convert.ToInt32(Console.ReadLine());
+        string? chooseNumber = Console.ReadLine();
+        if(int.TryParse(chooseNumber, out int chosenNumber))
+        {
+            if (chosenNumber <= 0)
+            {
+                Console.WriteLine("Invalid option");
+                return DoTurn(board, player);
+            }
+            else if (chosenNumber > (board.Pits.Length - 2) / 2)
+            {
+                Console.WriteLine("Invalid option");
+                return DoTurn(board, player);
+            }
 
-        //We first need to check if a player chooses a valid number, aka plays from their pits.
-        if (chosenNumber <= 0)
-        {
-            Console.WriteLine("Invalid option");
-            return DoTurn(board, player);
-        }
-        else if (chosenNumber > (board.Pits.Length - 2)/2)
-        {
-            Console.WriteLine("Invalid option");
-            return DoTurn(board, player);
-        }
+            if (player.PlayerNumb == Player.Numb.P1)
+            {
+                chosenNumber -= 1;
+            }
+            else
+            {
+                chosenNumber += (board.Pits.Length / 2) - 1;
+            }
 
-        if (player.PlayerNumb == Player.Numb.P1)
-        {
-            chosenNumber -= 1;
+            if (board.Pits[chosenNumber].GetStoneAmount() == 0)
+            {
+                Console.WriteLine("Can't choose a pit with zero stones");
+                return DoTurn(board, player);
+            }
+
+            return board.MoveStones(chosenNumber, player.PlayerNumb);
         }
         else
         {
-            chosenNumber += (board.Pits.Length / 2) - 1; 
+            Console.WriteLine("Invalid option");
+            return DoTurn(board, player);
         }
 
-        return board.MoveStones(chosenNumber, player.PlayerNumb);
+
+        //We first need to check if a player chooses a valid number, aka plays from their pits.
+
     }
 
     public override Player MoveResult(Board board, Player player, Pit EndPit)
