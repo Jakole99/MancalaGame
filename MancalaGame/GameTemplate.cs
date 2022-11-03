@@ -42,7 +42,7 @@ public abstract class GameTemplate
                 Console.WriteLine("Invalid option");
                 return ChoosePit(board, player);
             }
-            else if (chosenNumber > (board.Pits.Length - 2) / 2)
+            else if (chosenNumber > (board.Pits.Length - 2) / 2 && board.hasHomePit)
             {
                 Console.WriteLine("Invalid option");
                 return ChoosePit(board, player);
@@ -52,6 +52,12 @@ public abstract class GameTemplate
                 Console.WriteLine("Invalid Option");
                 return ChoosePit(board, player);
             }
+            else if (chosenNumber > board.Pits.Length / 2 && !board.hasHomePit)
+            {
+                Console.WriteLine("Invalid option");
+                return DoTurn(board, player);
+            }
+
 
             if (player.PlayerNumb == Player.Numb.P1)
             {
