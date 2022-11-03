@@ -36,7 +36,7 @@ public class MancalaTemplate : GameTemplate
 
 
                 board.GetHomePit(player.PlayerNumb).AddStones(oppositeStoneAmount);
-
+                board.GetHomePit(player.PlayerNumb).AddStones(1);
 
                 EndPit.EmptyPit();
 

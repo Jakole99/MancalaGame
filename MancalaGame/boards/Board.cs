@@ -31,13 +31,12 @@ public class Board
     {
         if (hasHomePit)
         {
-            int rowNormals = (pitAmount - 2) / 2;
-            for (int i = 0; i < rowNormals; i++)
+            for (int i = 0; i < (pitAmount - 2) / 2; i++)
             {
                 Pits[i] = new Pit(0, Player.Numb.P1, false, i);
             }
-            Pits[rowNormals] = new Pit(0, Player.Numb.P1, true, rowNormals);
-            for (int j = rowNormals + 1; j < pitAmount - 2; j++)
+            Pits[(pitAmount - 2) / 2] = new Pit(0, Player.Numb.P1, true, (pitAmount - 2) / 2);
+            for (int j = pitAmount / 2; j < pitAmount - 1; j++)
             {
                 Pits[j] = new Pit(0, Player.Numb.P2, false, j);
             }
@@ -108,7 +107,7 @@ public class Board
         string row2 = "|      ";
         string row3 = "|----- ";
         string row4 = "||   | ";
-        string row5 = "||" + scoreP1 + "| ";
+        string row5 = "||" + numbToString(scoreP1) + "| ";
         string row6 = "||   | ";
         string row7 = "|----- ";
         string row8 = "|______";
@@ -153,7 +152,7 @@ public class Board
         row2 += "     |";
         row3 += "-----|";
         row4 += "|   ||";
-        row5 += "|" + scoreP2 + "||";
+        row5 += "|" + numbToString(scoreP2) + "||";
         row6 += "|   ||";
         row7 += "-----|";
         row8 += "_____|";
