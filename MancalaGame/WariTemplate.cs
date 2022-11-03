@@ -15,7 +15,7 @@ class WariTemplate : GameTemplate
         {
             if (EndPit.GetStoneAmount() == 2 || EndPit.GetStoneAmount() == 3)
             {
-                board.GetHomePit(player.PlayerNumb).AddStones(EndPit.GetStoneAmount());
+                player.score += EndPit.GetStoneAmount();
                 EndPit.EmptyPit();
             }
         }
