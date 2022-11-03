@@ -4,11 +4,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class WarCaliTemplate :  GameTemplate
+public class WarCaliTemplate :  GameTemplate
 {
-    public override Player MoveResult(Board board, Player player, Pit EndPit)
+    public override Player MoveResult(Board board, Player player, Pit EndPit, int chosenPitNumber)
     {
         Player nextPlayer = Game.gameSettings.NextPlayer(player.PlayerNumb);
+
+        //These are some of the rules of Mancala.
+        if (EndPit.IsHomePit)
+        {
+            UpdateScore(player, board);
+            return player;
+        }
+
+        //Last Stone ends in an empty pit of the player, it check if the opposite pit of the opponent is empty or not.
+        if (EndPit.GetStoneAmount() == 1 && EndPit.GetOwner() == player.PlayerNumb)  //The Last stone ended in here, that's why we check for == 1.
+        {
+            int oppositeStoneAmount = board.GetOppositePit(EndPit).GetStoneAmount();
+
+            if (oppositeStoneAmount != 0)
+            {
+
+                board.GetHomePit(player.PlayerNumb).AddStones(oppositeStoneAmount);
+                board.GetHomePit(player.PlayerNumb).AddStones(1);
+                board.GetOppositePit(EndPit).EmptyPit();
+                EndPit.EmptyPit();
+            }
+        }
+ 
+
+        //This is the rule we made up. If the last stone ends in the pit it started from, the player may play again. 
+        if (EndPit.index == chosenPitNumber)
+        {
+            UpdateScore(player, board);
+            return player;
+        }
 
         //These are the rules of the Wari game.
         if (EndPit.GetOwner() == nextPlayer.PlayerNumb)
@@ -16,20 +46,19 @@ class WarCaliTemplate :  GameTemplate
             if (EndPit.GetStoneAmount() == 2 || EndPit.GetStoneAmount() == 3)
             {
                 board.GetHomePit(player.PlayerNumb).AddStones(EndPit.GetStoneAmount());
+                UpdateScore(player, board);
                 EndPit.EmptyPit();
             }
         }
+
+        UpdateScore(player, board);
         return nextPlayer;
-
-
-        //These are some of the rules of Mancala.
-        if (EndPit.IsHomePit)
-        {
-            return player;
-        }
-
 
     }
 
+    private void UpdateScore(Player player, Board board)
+    {
+        player.score = board.GetHomePit(player.PlayerNumb).GetStoneAmount();
+    }
 
 }

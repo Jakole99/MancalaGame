@@ -193,13 +193,13 @@ public class Board
             return "0:    ";
 
         string stringNumb = numb.ToString();
-        string retrunNumb = stringNumb + ":";
+        string returnNumb = stringNumb + ":";
 
         for (int i = 0; i < 5 - stringNumb.Length ;i++)
         {
-            retrunNumb += " ";
+            returnNumb += " ";
         }
-        return retrunNumb;
+        return returnNumb;
     }
 
     // helper function that takes a int and returns a string of lenght three to be used in the draw function
@@ -224,7 +224,8 @@ public class Board
 
     public Pit GetHomePit (Player.Numb player)
     {
-        int middleOfTheBoard = (Pits.Length - 1) / 2; //the first nyumba is the middle element of the Pit array, and the second nyumba is the last element
+        //the first nyumba is the middle element of the Pit array, and the second nyumba is the last element
+        int middleOfTheBoard = (Pits.Length - 1) / 2; 
         int endOfTheBoard = (Pits.Length - 1);
 
         if (player == Player.Numb.P1)

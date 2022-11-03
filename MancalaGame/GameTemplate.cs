@@ -11,6 +11,7 @@ public abstract class GameTemplate
 
     Pit lastPit;
     Player playersTurn;
+    int chosenPitNumber;
 
     public Player playGame(Board board, Player player)
     {
@@ -19,13 +20,13 @@ public abstract class GameTemplate
         {
             return GetWinner(board);
         }
-        lastPit = DoTurn(board, player);
-        playersTurn = MoveResult(board, player, lastPit);
+        chosenPitNumber = ChoosePit(board, player);
+        lastPit = DoTurn(board, player, chosenPitNumber);
+        playersTurn = MoveResult(board, player, lastPit, chosenPitNumber);
         return playGame(board, playersTurn);
     }
-
-    public virtual Pit DoTurn(Board board, Player player) 
-    { 
+    public virtual int ChoosePit(Board board, Player player)
+    {
 
         board.DrawBoard(Game.gameSettings.GetPlayer(Player.Numb.P1).score, Game.gameSettings.GetPlayer(Player.Numb.P2).score);
 
@@ -39,17 +40,22 @@ public abstract class GameTemplate
             if (chosenNumber <= 0)
             {
                 Console.WriteLine("Invalid option");
-                return DoTurn(board, player);
+                return ChoosePit(board, player);
             }
             else if (chosenNumber > (board.Pits.Length - 2) / 2 && board.hasHomePit)
             {
                 Console.WriteLine("Invalid option");
-                return DoTurn(board, player);
+                return ChoosePit(board, player);
+            }
+            else if (chosenNumber > board.Pits.Length / 2 && !board.hasHomePit)
+            {
+                Console.WriteLine("Invalid Option");
+                return ChoosePit(board, player);
             }
             else if (chosenNumber > board.Pits.Length / 2 && !board.hasHomePit)
             {
                 Console.WriteLine("Invalid option");
-                return DoTurn(board, player);
+                return ChoosePit(board, player);
             }
 
 
@@ -65,19 +71,23 @@ public abstract class GameTemplate
             if (board.Pits[chosenNumber].GetStoneAmount() == 0)
             {
                 Console.WriteLine("Can't choose a pit with zero stones");
-                return DoTurn(board, player);
+                return ChoosePit(board, player);
             }
 
-            return board.MoveStones(chosenNumber, player.PlayerNumb);
+            return chosenNumber; //board.MoveStones(chosenNumber, player.PlayerNumb);
         }
         else
         {
             Console.WriteLine("Invalid option");
-            return DoTurn(board, player);
+            return ChoosePit(board, player);
         }
     }
+    public virtual Pit DoTurn(Board board, Player player,int chosenNumber) 
+    {
+        return board.MoveStones(chosenNumber, player.PlayerNumb);
+    }
 
-    public abstract Player MoveResult(Board board, Player player, Pit EndPit);
+    public abstract Player MoveResult(Board board, Player player, Pit EndPit, int chosenPitNumber);
     public virtual bool CheckEndCondition(Board board, Player player) 
     {
         foreach (Pit pit in board.Pits.Where(n => n.IsHomePit == false && n.GetOwner() == player.PlayerNumb))
