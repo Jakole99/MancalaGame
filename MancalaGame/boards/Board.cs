@@ -107,7 +107,7 @@ public class Board
         string row2 = "|      ";
         string row3 = "|----- ";
         string row4 = "||   | ";
-        string row5 = "||" + numbToString(scoreP1) + "| ";
+        string row5 = "||" + numbToString(scoreP2) + "| ";
         string row6 = "||   | ";
         string row7 = "|----- ";
         string row8 = "|______";
@@ -152,7 +152,7 @@ public class Board
         row2 += "     |";
         row3 += "-----|";
         row4 += "|   ||";
-        row5 += "|" + numbToString(scoreP2) + "||";
+        row5 += "|" + numbToString(scoreP1) + "||";
         row6 += "|   ||";
         row7 += "-----|";
         row8 += "_____|";
