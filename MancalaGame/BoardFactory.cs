@@ -28,7 +28,7 @@ public class BoardFactory
         else if (variant == Game.Variant.Wari)
             return new Board(6, 4, false);
         else if (variant == Game.Variant.WarCali)
-            return new Board(6, 4);
+            return new Board(6, 4, true);
         else
             return null;
     }

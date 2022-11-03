@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 public abstract class GameTemplate 
 {
+    int scorePlayer1 = 0;
+    int scorePlayer2 = 0;
+
 
     public Player playGame(Board board, Player player)
     {
@@ -20,7 +23,7 @@ public abstract class GameTemplate
     public virtual Pit DoTurn(Board board, Player player) 
     { 
 
-        board.DrawBoard();
+        board.DrawBoard(scorePlayer1, scorePlayer2);
 
         Console.WriteLine(player.PlayerName + " Choose a number to pick a non-empty pit:");
 
