@@ -37,7 +37,7 @@ public class Board
                 Pits[i] = new Pit(0, Player.Numb.P1, false, i);
             }
             Pits[rowNormals] = new Pit(0, Player.Numb.P1, true, rowNormals);
-            for (int j = pitAmount / 2; j < pitAmount / 2 + rowNormals; j++)
+            for (int j = rowNormals + 1; j < pitAmount - 2; j++)
             {
                 Pits[j] = new Pit(0, Player.Numb.P2, false, j);
             }
@@ -58,7 +58,7 @@ public class Board
         
     }
 
-    //methode to get the opposing pit on the board
+    //method to get the opposing pit on the board
     public Pit GetOppositePit(Pit pit)
     {
         //get half the boards length

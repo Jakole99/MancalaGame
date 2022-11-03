@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 public abstract class GameTemplate 
 {
-    int scorePlayer1 = 0;
-    int scorePlayer2 = 0;
+    public int scorePlayer1 = 0;
+    public int scorePlayer2 = 0;
 
 
 
