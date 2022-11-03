@@ -55,7 +55,7 @@ public abstract class GameTemplate
             else if (chosenNumber > board.Pits.Length / 2 && !board.hasHomePit)
             {
                 Console.WriteLine("Invalid option");
-                return DoTurn(board, player);
+                return ChoosePit(board, player);
             }
 
 
