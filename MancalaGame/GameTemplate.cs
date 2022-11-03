@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 public abstract class GameTemplate 
 {
 
+
     public Player playGame(Board board, Player player)
     {
         // algoritme logica
@@ -63,6 +64,7 @@ public abstract class GameTemplate
             return DoTurn(board, player);
         }
     }
+
     public abstract Player MoveResult(Board board, Player player, Pit EndPit);
     public virtual bool CheckEndCondition(Board board, Player player) 
     {

@@ -8,8 +8,12 @@ public class MancalaTemplate : GameTemplate
 {
     public override Player MoveResult(Board board, Player player, Pit EndPit)
     {
-        ///Now we check what happens next, what is the result of that move which has been played.
+        //We use the recursion rule of mancala.
+        EndPit = ContinueMove(board, player, EndPit);
 
+
+
+        ///Now we check what happens next, what is the result of that move which has been played.
         ///Last Stone ends in Nyumba of the player. Player can play again.
         if (EndPit.IsHomePit) 
         {
@@ -51,10 +55,15 @@ public class MancalaTemplate : GameTemplate
         }
 
 
-        ///Player has no more stones left in their regular pits.
-        //al gedaan bij CheckEndCondition
-        ///Player with the most stones.
-        //al gedaan by GetWinner
+    }
 
+    public Pit ContinueMove(Board board, Player player, Pit EndPit)
+    {
+        if (EndPit.GetStoneAmount() != 1 && !EndPit.IsHomePit)
+        {
+            return ContinueMove(board, player, board.MoveStones(EndPit.index, player.PlayerNumb));
+        }
+
+        return EndPit;
     }
 }
