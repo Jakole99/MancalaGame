@@ -16,7 +16,7 @@ public class BoardFactory
             return new WariBoard(pits, stones);
 
         else if (variant == Game.Variant.WarCali)
-            return new WarCali(pits, stones);
+            return new WarCaliBoard(pits, stones);
 
         else return null;
 

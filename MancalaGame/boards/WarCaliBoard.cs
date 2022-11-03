@@ -9,6 +9,7 @@ public class WarCaliBoard : Board
     public WarCaliBoard(int pits, int stones) : base(pits, stones)
     {
 
+
     }
 }
 

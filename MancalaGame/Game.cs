@@ -19,30 +19,23 @@ public class Game
 
     public Game()
     {
-        
+
     }
 
     public void StartGame()
     {
-       
-
         gameSettings = GetGameSettings();
-        gameTemplate = GetGameTemplate(gameSettings.gameVariant);
+        gameTemplate = makeGameTemplate(gameSettings.gameVariant);
         Player winner = gameTemplate.playGame(gameSettings.GameBoard, gameSettings.player1);
         Console.WriteLine(winner.PlayerName + " has won! Good Job!");
     }
 
-    private GameTemplate GetGameTemplate(Variant gameVariant)
+    private GameTemplate makeGameTemplate(Variant gameVariant)
     {
-        if (gameVariant == Variant.Mancala)
-            return (new MancalaTemplate());
-        else if (gameVariant == Variant.Wari)
-            return (new WariTemplate());
-        else
-            return null;
-
+        GameTemplateFactory gameTemplateFactory = new GameTemplateFactory();
+        return gameTemplateFactory.GetGameTemplate(gameVariant);                   
     }
-    
+
 
     private GameSettings GetGameSettings()
     {
@@ -55,7 +48,5 @@ public class Game
 
         return (new GameSettings(pits, stones, gameVariant, player1Name, player2Name));
     }
-
-    
 }
 
