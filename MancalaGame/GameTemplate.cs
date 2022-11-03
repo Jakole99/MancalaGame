@@ -100,13 +100,13 @@ public abstract class GameTemplate
     }
     public virtual Player GetWinner(Board board) 
     {
-        if (board.GetHomePit(Player.Numb.P1).GetStoneAmount() > board.GetHomePit(Player.Numb.P2).GetStoneAmount())
+        if (Game.gameSettings.player1.score > Game.gameSettings.player2.score)
         {
             return Game.gameSettings.GetPlayer(Player.Numb.P1);
         }
-        else if (board.GetHomePit(Player.Numb.P1).GetStoneAmount() == board.GetHomePit(Player.Numb.P2).GetStoneAmount())
+        else if (Game.gameSettings.player1.score == Game.gameSettings.player2.score)
         {
-            return Game.gameSettings.GetPlayer(Player.Numb.None); //It's a draw.
+            return new Player("Nobody", Player.Numb.P1); //It's a draw.
         }
         else
         {
