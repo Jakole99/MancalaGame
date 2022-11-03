@@ -15,7 +15,7 @@ public class UI
 
     public int AskPitAmount()
     {
-        Console.WriteLine("Please enter an amount of pits greater 2 you would like to use:");
+        Console.WriteLine("Please enter an even amount of pits that is greater 2 you would like to use (homepits count as pits):");
         
         string? pitAmountString = Console.ReadLine();
         
@@ -90,6 +90,27 @@ public class UI
             return AskGameVariant();
         }
     }
+
+    public bool AskStanderdOptions()
+    {
+        Console.WriteLine("Do you want to use the standerd settings? type Y for yes or N for no");
+
+        string? standerdOptions = Console.ReadLine();
+        if (standerdOptions.ToUpper() == "Y")
+        {
+            return true;
+        }
+        else if (standerdOptions.ToUpper() == "N")
+        {
+            return false;
+        }
+        else
+        {
+            Console.WriteLine("Invalid options");
+            return AskStanderdOptions();
+        }
+    }
+    
 
 }
 

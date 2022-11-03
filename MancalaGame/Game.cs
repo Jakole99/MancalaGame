@@ -22,10 +22,9 @@ public class Game
         
     }
 
+    //methode that starts the game by first asking the player for gamesettings and creating the template from those settings 
     public void StartGame()
     {
-       
-
         gameSettings = GetGameSettings();
         gameTemplate = GetGameTemplate(gameSettings.gameVariant);
         Player winner = gameTemplate.playGame(gameSettings.GameBoard, gameSettings.player1);
@@ -50,6 +49,12 @@ public class Game
         string player2Name = ui.AskPlayerName();
 
         Variant gameVariant = ui.AskGameVariant();
+        bool preMadeSettings = ui.AskStanderdOptions();
+        if (preMadeSettings)
+        {
+            return (new GameSettings(0, 0, gameVariant, player1Name, player2Name));
+        }
+
         int pits = ui.AskPitAmount();
         int stones = ui.AskStoneAmount();
 

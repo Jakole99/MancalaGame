@@ -18,7 +18,7 @@ public abstract class GameTemplate
     }
 
     public virtual Pit DoTurn(Board board, Player player) 
-    {
+    { 
 
         board.DrawBoard();
 

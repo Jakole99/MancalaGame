@@ -5,14 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public abstract class Board
+public class Board
 {
     public Pit[] Pits;
+    private bool hasHomePit;
 
-    public Board(int pits, int stones)
+    public Board(int pits, int stones, bool hasHomePit)
     {
+        this.hasHomePit = hasHomePit;
         Pits = new Pit[pits];
-        MakeBoard(pits);
+        MakeBoard(pits, hasHomePit);
         FillBoard(stones);
     }
 
@@ -25,19 +27,35 @@ public abstract class Board
         }
     }
 
-    public virtual void MakeBoard(int pitAmount)
+    public virtual void MakeBoard(int pitAmount, bool hasHomePit)
     {
-        int rowNormals = (pitAmount - 2) / 2;
-        for (int i = 0; i < rowNormals; i++)
+        if (hasHomePit)
         {
-            Pits[i] = new Pit(0, Player.Numb.P1, false, i);
+            int rowNormals = (pitAmount - 2) / 2;
+            for (int i = 0; i < rowNormals; i++)
+            {
+                Pits[i] = new Pit(0, Player.Numb.P1, false, i);
+            }
+            Pits[rowNormals] = new Pit(0, Player.Numb.P1, true, rowNormals);
+            for (int j = pitAmount / 2; j < pitAmount / 2 + rowNormals; j++)
+            {
+                Pits[j] = new Pit(0, Player.Numb.P2, false, j);
+            }
+            Pits[pitAmount - 1] = new Pit(0, Player.Numb.P2, true, pitAmount - 1);
         }
-        Pits[rowNormals] = new Pit(0, Player.Numb.P1, true, rowNormals);
-        for (int j = pitAmount/2; j < pitAmount/2 + rowNormals; j++)
+        else
         {
-            Pits[j] = new Pit(0, Player.Numb.P2, false, j);
+            for (int i = 0; i < pitAmount / 2; i++)
+            {
+                Pits[i] = new Pit(0, Player.Numb.P1, false, i);
+
+            }
+            for (int j = pitAmount / 2; j < pitAmount; j++)
+            {
+                Pits[j] = new Pit(0, Player.Numb.P2, false, j);
+            }
         }
-        Pits[pitAmount - 1] = new Pit(0, Player.Numb.P2, true, pitAmount - 1);
+        
     }
 
     //methode to get the opposing pit on the board
@@ -78,52 +96,64 @@ public abstract class Board
             Pits[currentIndex].AddStones(1);
         }
 
-        if (Pits[currentIndex].GetStoneAmount() != 1 && !Pits[currentIndex].IsHomePit)
-        {
-            return MoveStones(currentIndex, player);
-        }
-        
         return Pits[currentIndex];
     }
 
 
-    public virtual void DrawBoard()
+    public virtual void DrawBoard(int scoreP1, int scoreP2)
     {
-        Pit homePitP2 = Pits[(Pits.Length - 1)];
-        Pit homePitP1 = Pits[(Pits.Length / 2 - 1)];
-
+        
         string row0 = "       ";
         string row1 = "_______";
         string row2 = "|      ";
         string row3 = "|----- ";
         string row4 = "||   | ";
-        string row5 = "||" + numbToString(homePitP2.GetStoneAmount()) + "| ";
+        string row5 = "||" + scoreP1 + "| ";
         string row6 = "||   | ";
         string row7 = "|----- ";
         string row8 = "|______";
         string row9 = "       ";
 
-
-
-        for (int i = 0; i < (Pits.Length-2)/2; i++)
+        if (hasHomePit)
         {
-            row0 += getIndexString(((Pits.Length - 2) / 2) - i);
-            row1 += "______";
-            row2 += "      ";
-            row3 += "----- ";
-            row4 += "|" + numbToString(Pits[Pits.Length - 2 - i].GetStoneAmount()) + "| ";
-            row5 += "----- ";
-            row6 += "|" + numbToString(Pits[i].GetStoneAmount()) + "| ";
-            row7 += "----- ";
-            row8 += "______";
-            row9 += getIndexString(i + 1);
+            for (int i = 0; i < (Pits.Length - 2) / 2; i++)
+            {
+                row0 += getIndexString(((Pits.Length - 2) / 2) - i);
+                row1 += "______";
+                row2 += "      ";
+                row3 += "----- ";
+                row4 += "|" + numbToString(Pits[Pits.Length - 2 - i].GetStoneAmount()) + "| ";
+                row5 += "----- ";
+                row6 += "|" + numbToString(Pits[i].GetStoneAmount()) + "| ";
+                row7 += "----- ";
+                row8 += "______";
+                row9 += getIndexString(i + 1);
+            }
         }
+        else
+        {
+            for (int i = 0; i < Pits.Length / 2; i++)
+            {
+                row0 += getIndexString((Pits.Length / 2) - i);
+                row1 += "______";
+                row2 += "      ";
+                row3 += "----- ";
+                row4 += "|" + numbToString(Pits[Pits.Length - 1 - i].GetStoneAmount()) + "| ";
+                row5 += "----- ";
+                row6 += "|" + numbToString(Pits[i].GetStoneAmount()) + "| ";
+                row7 += "----- ";
+                row8 += "______";
+                row9 += getIndexString(i + 1);
+            }
+        }
+
+
 
         row1 += "______";
         row2 += "     |";
         row3 += "-----|";
         row4 += "|   ||";
-        row5 += "|" + numbToString(homePitP1.GetStoneAmount()) + "||";
+        row5 += "|" + scoreP2 + "||";
         row6 += "|   ||";
         row7 += "-----|";
         row8 += "_____|";
