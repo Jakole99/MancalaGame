@@ -13,7 +13,7 @@ public class WarCaliTemplate :  GameTemplate
         //These are some of the rules of Mancala.
         if (EndPit.IsHomePit)
         {
-            player.score += 1;
+            UpdateScore(player, board);
             return player;
         }
 
@@ -24,7 +24,9 @@ public class WarCaliTemplate :  GameTemplate
 
             if (oppositeStoneAmount != 0)
             {
-                player.score += oppositeStoneAmount + 1;
+
+                board.GetHomePit(player.PlayerNumb).AddStones(oppositeStoneAmount);
+                board.GetHomePit(player.PlayerNumb).AddStones(1);
                 board.GetOppositePit(EndPit).EmptyPit();
                 EndPit.EmptyPit();
             }
@@ -34,6 +36,7 @@ public class WarCaliTemplate :  GameTemplate
         //This is the rule we made up. If the last stone ends in the pit it started from, the player may play again. 
         if (EndPit.index == chosenPitNumber)
         {
+            UpdateScore(player, board);
             return player;
         }
 
@@ -42,14 +45,20 @@ public class WarCaliTemplate :  GameTemplate
         {
             if (EndPit.GetStoneAmount() == 2 || EndPit.GetStoneAmount() == 3)
             {
-                player.score = +EndPit.GetStoneAmount();
+                board.GetHomePit(player.PlayerNumb).AddStones(EndPit.GetStoneAmount());
+                UpdateScore(player, board);
                 EndPit.EmptyPit();
             }
         }
 
+        UpdateScore(player, board);
         return nextPlayer;
 
     }
 
+    private void UpdateScore(Player player, Board board)
+    {
+        player.score = board.GetHomePit(player.PlayerNumb).GetStoneAmount();
+    }
 
 }
