@@ -11,11 +11,11 @@ public class GameSettings
     public Board GameBoard;
     public Game.Variant gameVariant{ get; private set;}
 
-    public GameSettings(int pits, int stones, Game.Variant gameVariant, string player1Name, string player2Name)
+    public GameSettings(Game.Variant gameVariant, string player1Name, string player2Name, bool standerd, int pits = 8, int stones = 4)
     {
         this.gameVariant = gameVariant;
         makePlayers(player1Name, player2Name);
-        makeBoard(pits, stones, gameVariant);
+        makeBoard(pits, stones, gameVariant, standerd);
     }
 
     public Player GetPlayer(Player.Numb playerNumb)
@@ -41,10 +41,10 @@ public class GameSettings
         player2 = new Player(player2Name, Player.Numb.P2);
     }
 
-    private void makeBoard(int pits, int stones, Game.Variant variant)
+    private void makeBoard(int pits, int stones, Game.Variant variant, bool standerd)
     {
         BoardFactory boardFactory = new BoardFactory();
-        if (pits == 0)
+        if (standerd)
         {
             GameBoard = boardFactory.GetStanderdBoard(variant);
         }

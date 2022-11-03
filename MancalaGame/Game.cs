@@ -47,13 +47,13 @@ public class Game
         bool preMadeSettings = ui.AskStanderdOptions();
         if (preMadeSettings)
         {
-            return (new GameSettings(0, 0, gameVariant, player1Name, player2Name));
+            return (new GameSettings(gameVariant, player1Name, player2Name, true));
         }
 
         int pits = ui.AskPitAmount();
         int stones = ui.AskStoneAmount();
 
-        return (new GameSettings(pits, stones, gameVariant, player1Name, player2Name));
+        return (new GameSettings(gameVariant, player1Name, player2Name, false, pits, stones));
     }
 }
 

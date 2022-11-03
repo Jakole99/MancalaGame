@@ -61,15 +61,31 @@ public class Board
     public Pit GetOppositePit(Pit pit)
     {
         //get half the boards length
-        int Baseindex = Pits.Length - 2;
+        int Baseindex;
 
-        if (pit.index < Baseindex)
+        if (hasHomePit)
         {
-            return Pits[pit.index + Baseindex - (pit.index*2)];
+            Baseindex = Pits.Length - 2;
+            if (pit.index < Baseindex / 2)
+            {
+                return Pits[pit.index + Baseindex - (pit.index * 2)];
+            }
+            else
+            {
+                return Pits[pit.index - Baseindex + (2 * (Baseindex - pit.index))];
+            }
         }
         else
         {
-            return Pits[pit.index - Baseindex - (2*(Baseindex - pit.index))];
+            Baseindex = Pits.Length - 1;
+            if (pit.index < Pits.Length / 2)
+            {
+                return Pits[pit.index + Baseindex - (pit.index * 2)];
+            }
+            else
+            {
+                return Pits[pit.index - Baseindex + (2 * (Baseindex - pit.index))];
+            }
         }
     }
 
@@ -145,8 +161,6 @@ public class Board
                 row9 += getIndexString(i + 1);
             }
         }
-
-
 
         row1 += "______";
         row2 += "     |";
