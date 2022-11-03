@@ -9,7 +9,8 @@ public abstract class GameTemplate
     public int scorePlayer1 = 0;
     public int scorePlayer2 = 0;
 
-
+    Pit lastPit;
+    Player playersTurn;
 
     public Player playGame(Board board, Player player)
     {
@@ -18,8 +19,12 @@ public abstract class GameTemplate
         {
             return GetWinner(board);
         }
-        return playGame(board, MoveResult(board, player, DoTurn(board, player)));
+        lastPit = DoTurn(board, player);
+        playersTurn = MoveResult(board, player, lastPit);
+        return playGame(board, playersTurn);
     }
+
+    public abstract void UpdateScore();
 
     public virtual Pit DoTurn(Board board, Player player) 
     { 

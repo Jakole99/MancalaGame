@@ -6,20 +6,21 @@ using System.Threading.Tasks;
 
 public class MancalaTemplate : GameTemplate
 {
+
     public override Player MoveResult(Board board, Player player, Pit EndPit)
     {
         //We use the recursion rule of mancala.
         EndPit = ContinueMove(board, player, EndPit);
 
-        scorePlayer1 = board.GetHomePit(Player.Numb.P1).GetStoneAmount();
-        scorePlayer2 = board.GetHomePit(Player.Numb.P2).GetStoneAmount();
 
         ///Now we check what happens next, what is the result of that move which has been played.
         ///Last Stone ends in Nyumba of the player. Player can play again.
-        if (EndPit.IsHomePit) 
+        if (EndPit.IsHomePit)
         {
+
             return player;
-         }
+        }
+        
 
 
         ///Last Stone ends in an empty pit and Its the players pit
