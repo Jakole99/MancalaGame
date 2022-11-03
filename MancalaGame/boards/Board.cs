@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 public class Board
 {
     public Pit[] Pits;
-    private bool hasHomePit;
+    public bool hasHomePit;
 
     public Board(int pits, int stones, bool hasHomePit)
     {
