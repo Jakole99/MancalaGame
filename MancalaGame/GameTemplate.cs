@@ -24,12 +24,10 @@ public abstract class GameTemplate
         return playGame(board, playersTurn);
     }
 
-    public abstract void UpdateScore();
-
     public virtual Pit DoTurn(Board board, Player player) 
     { 
 
-        board.DrawBoard(scorePlayer1, scorePlayer2);
+        board.DrawBoard(Game.gameSettings.GetPlayer(Player.Numb.P1).score, Game.gameSettings.GetPlayer(Player.Numb.P2).score);
 
         Console.WriteLine(player.PlayerName + " Choose a number to pick a non-empty pit:");
 

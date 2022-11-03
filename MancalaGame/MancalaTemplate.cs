@@ -17,7 +17,7 @@ public class MancalaTemplate : GameTemplate
         ///Last Stone ends in Nyumba of the player. Player can play again.
         if (EndPit.IsHomePit)
         {
-
+            player.score = board.GetHomePit(player.PlayerNumb).GetStoneAmount();
             return player;
         }
         
@@ -46,6 +46,7 @@ public class MancalaTemplate : GameTemplate
 
             ///Last Stone ends in an empty Pit of the player and the opposite pit of the opponent is empty
             ///, next players turn.
+            player.score = board.GetHomePit(player.PlayerNumb).GetStoneAmount();
             return Game.gameSettings.NextPlayer(player.PlayerNumb);
 
           
@@ -53,6 +54,7 @@ public class MancalaTemplate : GameTemplate
         /// Its the opponents pit
         else
         {
+            player.score = board.GetHomePit(player.PlayerNumb).GetStoneAmount();
             return Game.gameSettings.NextPlayer(player.PlayerNumb);      ///Last Stone ends in an empty Pit of the opponent. Next players turn.
         }
 
