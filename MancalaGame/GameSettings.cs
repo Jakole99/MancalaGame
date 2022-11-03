@@ -46,9 +46,9 @@ public class GameSettings
         BoardFactory boardFactory = new BoardFactory();
         if (pits == 0)
         {
-            GameBoard = boardFactory.GetBoard();
+            GameBoard = boardFactory.GetStanderdBoard(variant);
         }    
-        GameBoard = boardFactory.GetBoard(pits, stones, variant);
+        GameBoard = boardFactory.GetCustomBoard(pits, stones, variant);
     }
 }
 

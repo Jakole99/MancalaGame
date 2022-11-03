@@ -18,7 +18,7 @@ public class MancalaTemplate : GameTemplate
         if (EndPit.IsHomePit) 
         {
             return player;
-        }
+         }
 
 
         ///Last Stone ends in an empty pit and Its the players pit
