@@ -47,8 +47,11 @@ public class GameSettings
         if (pits == 0)
         {
             GameBoard = boardFactory.GetStanderdBoard(variant);
-        }    
-        GameBoard = boardFactory.GetCustomBoard(pits, stones, variant);
+        }
+        else
+        {
+            GameBoard = boardFactory.GetCustomBoard(pits, stones, variant);
+        } 
     }
 }
 
