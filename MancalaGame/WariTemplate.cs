@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 class WariTemplate : GameTemplate
 {
 
-    public override Player MoveResult(Board board, Player player, Pit EndPit) 
+    public override Player MoveResult(Board board, Player player, Pit EndPit, int chosenNumber) 
     {
         Player nextPlayer = Game.gameSettings.NextPlayer(player.PlayerNumb);
         

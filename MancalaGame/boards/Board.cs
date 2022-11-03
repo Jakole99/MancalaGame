@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 public class Board
 {
     public Pit[] Pits;
-    private bool hasHomePit;
+    public bool hasHomePit;
 
     public Board(int pits, int stones, bool hasHomePit)
     {
@@ -61,15 +61,15 @@ public class Board
     public Pit GetOppositePit(Pit pit)
     {
         //get half the boards length
-        int Baseindex = Pits.Length - 2;
+        int baseIndex = Pits.Length - 2;
 
-        if (pit.index < Baseindex)
+        if (pit.index < baseIndex)
         {
-            return Pits[pit.index + Baseindex - (pit.index*2)];
+            return Pits[pit.index + baseIndex - (pit.index*2)];
         }
         else
         {
-            return Pits[pit.index - Baseindex - (2*(Baseindex - pit.index))];
+            return Pits[pit.index - baseIndex - (2*(baseIndex - pit.index))];
         }
     }
 
@@ -179,13 +179,13 @@ public class Board
             return "0:    ";
 
         string stringNumb = numb.ToString();
-        string retrunNumb = stringNumb + ":";
+        string returnNumb = stringNumb + ":";
 
         for (int i = 0; i < 5 - stringNumb.Length ;i++)
         {
-            retrunNumb += " ";
+            returnNumb += " ";
         }
-        return retrunNumb;
+        return returnNumb;
     }
 
     // helper function that takes a int and returns a string of lenght three to be used in the draw function
@@ -210,7 +210,8 @@ public class Board
 
     public Pit GetHomePit (Player.Numb player)
     {
-        int middleOfTheBoard = (Pits.Length - 1) / 2; //the first nyumba is the middle element of the Pit array, and the second nyumba is the last element
+        //the first nyumba is the middle element of the Pit array, and the second nyumba is the last element
+        int middleOfTheBoard = (Pits.Length - 1) / 2; 
         int endOfTheBoard = (Pits.Length - 1);
 
         if (player == Player.Numb.P1)
