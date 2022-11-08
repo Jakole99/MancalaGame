@@ -1,5 +1,5 @@
 
-public class UnitTest1
+public class MoveStonesTest
 {
     [Theory]
     [InlineData(0)]
@@ -67,3 +67,63 @@ public class UnitTest1
         Assert.Equal(board.Pits[i].GetStoneAmount(), testboard[i]);
     }
 }
+
+public class GetOppositeTest
+{
+    [Fact]
+    public void getOppositeTest1()
+    {
+        //arrange
+        Board board = new Board(8, 4, true);
+        Pit expectedPit = board.Pits[4];
+
+        //act
+        Pit oppositPit = board.GetOppositePit(board.Pits[2]);
+
+        //assert
+        Assert.Equal(expectedPit, oppositPit);
+    }
+
+    [Fact]
+    public void getOppositeTest2()
+    {
+        //arrange
+        Board board = new Board(4, 0, true);
+        Pit expectedPit = board.Pits[0];
+
+        //act
+        Pit oppositPit = board.GetOppositePit(board.Pits[2]);
+
+        //assert
+        Assert.Equal(expectedPit, oppositPit);
+    }
+
+    [Fact]
+    public void getOppositeTest3()
+    {
+        //arrange
+        Board board = new Board(8, 4, false);
+        Pit expectedPit = board.Pits[4];
+
+        //act
+        Pit oppositPit = board.GetOppositePit(board.Pits[3]);
+
+        //assert
+        Assert.Equal(expectedPit, oppositPit);
+    }
+
+    [Fact]
+    public void getOppositeTest4()
+    {
+        //arrange
+        Board board = new Board(8, 4, false);
+        Pit expectedPit = board.Pits[0];
+
+        //act
+        Pit oppositPit = board.GetOppositePit(board.Pits[7]);
+
+        //assert
+        Assert.Equal(expectedPit, oppositPit);
+    }
+}
+
