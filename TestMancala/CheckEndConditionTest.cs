@@ -2,10 +2,10 @@
 public class CheckEndConditionTest
 {
     [Theory]
-    [InlineData(8, 0, true, true)]
-    [InlineData(4, 0, true, true)]
-    [InlineData(6, 0, true, true)]
-    [InlineData(14, 0, true, true)]
+    [InlineData(8, 2, true, false)]
+    [InlineData(4, 0, false, true)]
+    [InlineData(6, 4, true, false)]
+    [InlineData(14, 0, false, true)]
 
     public void CheckEndConditionTest1(int pits, int stones, bool hasHomePit, bool expectedAnswer)
     {
@@ -14,7 +14,7 @@ public class CheckEndConditionTest
         Player player2 = new Player("Peter", Player.Numb.P1);
         
         GameTemplate gameTemplate = new MancalaTemplate(); 
-        Board board = new Board(pits, 0, hasHomePit);
+        Board board = new Board(pits, stones, hasHomePit);
 
 
         //act
