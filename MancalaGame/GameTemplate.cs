@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 public abstract class GameTemplate 
 {
-    public int scorePlayer1 = 0;
-    public int scorePlayer2 = 0;
-
     Pit lastPit;
     Player playersTurn;
     int chosenPitNumber;
