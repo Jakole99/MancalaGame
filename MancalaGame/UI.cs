@@ -8,16 +8,14 @@ public class UI
 {
     public string AskPlayerName()
     {
-        Console.WriteLine("Please enter a username");
+        DisplayMessage("Please enter a username");
 
-        return (Console.ReadLine());
+        return GetString();
     }
-
-
 
     public Game.Variant AskGameVariant()
     {
-        Console.WriteLine("Please select which game you want to play, enter M/W/WC for Mancala, Wari or WarCali respectively");
+        DisplayMessage("Please select which game you want to play, enter M/W/WC for Mancala, Wari or WarCali respectively");
         string? gameVariant = Console.ReadLine();
         
         string GAMEVARIANT = gameVariant.ToUpper();
@@ -35,16 +33,16 @@ public class UI
         }
         else
         {
-            Console.WriteLine("not a valid game type");
+            DisplayMessage("not a valid game type");
             return AskGameVariant();
         }
     }
 
     public bool AskStanderdOptions()
     {
-        Console.WriteLine("Do you want to use the standerd settings? type Y for yes or N for no");
+        DisplayMessage("Do you want to use the standerd settings? type Y for yes or N for no");
 
-        string? standerdOptions = Console.ReadLine();
+        string standerdOptions = GetString();
         if (standerdOptions.ToUpper() == "Y")
         {
             return true;
@@ -55,63 +53,70 @@ public class UI
         }
         else
         {
-            Console.WriteLine("Invalid options");
+            DisplayMessage("Invalid options");
             return AskStanderdOptions();
         }
     }
 
     public int AskPitAmount()
     {
-        Console.WriteLine("Please enter an even amount of pits that is greater 2 you would like to use (homepits count as pits):");
+        DisplayMessage("Please enter an even amount of pits that is greater 2 you would like to use (homepits count as pits):");
 
-        string? pitAmountString = Console.ReadLine();
+        int pits = GetInteger();
 
-        int pitAmount;
-
-        if (int.TryParse(pitAmountString, out pitAmount))
+        if (pits > 3 && pits % 2 == 0)
         {
-            if (pitAmount > 3 && pitAmount % 2 == 0)
-            {
-                return pitAmount;
-            }
-            else
-            {
-                Console.WriteLine("invalid number, try again");
-                return AskPitAmount();
-            }
+            return pits;
         }
         else
         {
-            Console.WriteLine("this is not a number, try again");
+            DisplayMessage("invalid number, try again");
             return AskPitAmount();
         }
     }
 
     public int AskStoneAmount()
     {
-        Console.WriteLine("Please enter the amount of stones you would like to be added to each pit");
+        DisplayMessage("Please enter the amount of stones you would like to be added to each pit");
 
-        string? stoneAmountString = Console.ReadLine();
-        int stoneAmount;
-        if (int.TryParse(stoneAmountString, out stoneAmount))
+        int stones = GetInteger();
+
+        if (stones >= 0)
         {
-            if (stoneAmount >= 0)
-            {
-                return stoneAmount;
-            }
-            else
-            {
-                Console.WriteLine("Stone amount can't be negative, try again");
-                return AskStoneAmount();
-            }
+            return stones;
         }
         else
         {
-            Console.WriteLine("this is not a number, try again");
+            DisplayMessage("Stone amount can't be negative, try again");
             return AskStoneAmount();
         }
-
     }
 
+
+    public int GetInteger()
+    {
+        string? number = Console.ReadLine();
+        int numb;
+        
+        if (int.TryParse(number, out numb))
+        {
+            return numb;
+        }
+        else
+        {
+            DisplayMessage("please enter a number");
+            return GetInteger();
+        }
+    }
+
+    public string GetString()
+    {
+        return Console.ReadLine();
+    }
+
+    public void DisplayMessage(string message)
+    {
+        Console.WriteLine(message);
+    }
 }
 

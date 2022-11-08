@@ -23,7 +23,7 @@ public class Game
         gameSettings = GetGameSettings();
         gameTemplate = makeGameTemplate(gameSettings.gameVariant);
         Player winner = gameTemplate.playGame(gameSettings.GameBoard, gameSettings.player1);
-        Console.WriteLine(winner.PlayerName + " has won! Good Job!");
+        ui.DisplayMessage(winner.PlayerName + " has won! Good Job!");
     }
 
     private GameTemplate makeGameTemplate(Variant gameVariant)
