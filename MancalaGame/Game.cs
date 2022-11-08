@@ -29,7 +29,7 @@ public class Game
     private GameTemplate makeGameTemplate(Variant gameVariant)
     {
         GameTemplateFactory gameTemplateFactory = new GameTemplateFactory();
-        return gameTemplateFactory.GetGameTemplate(gameVariant);                   
+        return gameTemplateFactory.GetGameTemplate(gameVariant);
     }
 
 

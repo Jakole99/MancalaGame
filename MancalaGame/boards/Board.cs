@@ -62,7 +62,7 @@ public class Board
         }
     }
 
-    //method to get the opposing pit on the board
+    
     public Pit GetOppositePit(Pit pit)
     {
         int baseindex;
@@ -212,20 +212,20 @@ public class Board
             return "  0";
 
         string stringNumb = numb.ToString();
-        string retrunNumb = "";
+        string returnNumb = "";
 
         for (int i = 0; i < 3 - stringNumb.Length; i++)
         {
-            retrunNumb += " ";
+            returnNumb += " ";
         }
-        retrunNumb += stringNumb;
+        returnNumb += stringNumb;
         
-        return retrunNumb;
+        return returnNumb;
     }
 
     public Pit GetHomePit (Player.Numb player)
     {
-        //the first nyumba is the middle element of the Pit array, and the second nyumba is the last element
+        //If the board has a nyumba, Our code will make the board where the first nyumba is the middle element of the Pit array, and the second nyumba is the last element
         int middleOfTheBoard = (Pits.Length - 1) / 2; 
         int endOfTheBoard = (Pits.Length - 1);
 
