@@ -57,7 +57,7 @@ public class Board
         
     }
 
-    //method to get the opposing pit on the board
+    
     public Pit GetOppositePit(Pit pit)
     {
         //get half the boards length

@@ -67,7 +67,3 @@ public class UnitTest1
         Assert.Equal(board.Pits[i].GetStoneAmount(), testboard[i]);
     }
 }
-public class UnitTest2
-{
-    [Fact]
-}

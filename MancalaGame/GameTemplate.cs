@@ -12,7 +12,6 @@ public abstract class GameTemplate
 
     public Player playGame(Board board, Player player)
     {
-        // algoritme logica
         if (CheckEndCondition(board, player))
         {
             return GetWinner(board);
@@ -22,42 +21,28 @@ public abstract class GameTemplate
         playersTurn = MoveResult(board, player, lastPit, chosenPitNumber);
         return playGame(board, playersTurn);
     }
+   
+    //Keep asking the player to pick a pit to play from, until it is a valid number. A player cannot play from empty or opponents pit.
     public virtual int ChoosePit(Board board, Player player)
     {
 
-        board.DrawBoard(Game.gameSettings.GetPlayer(Player.Numb.P1).score, Game.gameSettings.GetPlayer(Player.Numb.P2).score);
-
+        board.DrawBoard(Game.gameSettings.GetPlayer(Player.Numb.P1).score, Game.gameSettings.GetPlayer(Player.Numb.P2).score); 
         Console.WriteLine(player.PlayerName + " Choose a number to pick a non-empty pit:");
 
 
-        //We first need to check if a player chooses a valid number, aka plays from their pits.
         string? chooseNumber = Console.ReadLine();
         if (int.TryParse(chooseNumber, out int chosenNumber))
         {
-            if (chosenNumber <= 0)
+
+            if (InValidChosenNumber(board, chosenNumber))
             {
                 Console.WriteLine("Invalid option");
-                return ChoosePit(board, player);
-            }
-            else if (chosenNumber > (board.Pits.Length - 2) / 2 && board.hasHomePit)
-            {
-                Console.WriteLine("Invalid option");
-                return ChoosePit(board, player);
-            }
-            else if (chosenNumber > board.Pits.Length / 2 && !board.hasHomePit)
-            {
-                Console.WriteLine("Invalid Option");
                 return ChoosePit(board, player);
             }
 
-            if (player.PlayerNumb == Player.Numb.P1)
-            {
-                chosenNumber -= 1;
-            }
-            else
-            {
-                chosenNumber += (board.Pits.Length / 2) - 1;
-            }
+
+            chosenNumber += AdaptPlayerChoice(board, player);
+
 
             if (board.Pits[chosenNumber].GetStoneAmount() == 0)
             {
@@ -67,12 +52,43 @@ public abstract class GameTemplate
 
             return chosenNumber;
         }
-        else
-        {
-            Console.WriteLine("Invalid option");
-            return ChoosePit(board, player);
-        }
+
+        Console.WriteLine("Invalid option");
+        return ChoosePit(board, player);
     }
+
+    //Player chooses a valid number which has been given.
+    public bool InValidChosenNumber(Board board, int chosenNumber)
+    {
+        if (chosenNumber <= 0)
+        {
+            return true;
+        }
+
+        if (chosenNumber > (board.Pits.Length - 2) / 2 && board.hasHomePit)
+        {
+            return true;
+        }
+
+        if (chosenNumber > board.Pits.Length / 2 && !board.hasHomePit)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    //Depending on which player chooses, the index of the pit in the list will be different.
+    public int AdaptPlayerChoice(Board board, Player player)
+    {
+        if (player.PlayerNumb == Player.Numb.P1)
+        {
+            return (-1);
+        }
+
+        return (board.Pits.Length / 2) - 1;
+    }
+
     public virtual Pit DoTurn(Board board, Player player,int chosenNumber) 
     {
         return board.MoveStones(chosenNumber, player.PlayerNumb);
