@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 public abstract class GameTemplate 
 {
-    public int scorePlayer1 = 0;
-    public int scorePlayer2 = 0;
-
     Pit lastPit;
     Player playersTurn;
     int chosenPitNumber;
@@ -52,12 +49,6 @@ public abstract class GameTemplate
                 Console.WriteLine("Invalid Option");
                 return ChoosePit(board, player);
             }
-            else if (chosenNumber > board.Pits.Length / 2 && !board.hasHomePit)
-            {
-                Console.WriteLine("Invalid option");
-                return ChoosePit(board, player);
-            }
-
 
             if (player.PlayerNumb == Player.Numb.P1)
             {
@@ -74,7 +65,7 @@ public abstract class GameTemplate
                 return ChoosePit(board, player);
             }
 
-            return chosenNumber; //board.MoveStones(chosenNumber, player.PlayerNumb);
+            return chosenNumber;
         }
         else
         {
@@ -106,7 +97,7 @@ public abstract class GameTemplate
         }
         else if (Game.gameSettings.player1.score == Game.gameSettings.player2.score)
         {
-            return new Player("Nobody", Player.Numb.P1); //It's a draw.
+            return new Player("Nobody", Player.Numb.None); //It's a draw.
         }
         else
         {
