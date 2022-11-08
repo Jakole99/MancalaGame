@@ -94,7 +94,7 @@ public abstract class GameTemplate
             if (pit.GetStoneAmount() != 0)
                 return false;
         }
-        ui.DisplayMessage(Game.gameSettings.GetPlayer(Player.Numb.P1).PlayerName + ": " + board.GetHomePit(Player.Numb.P1).GetStoneAmount() + " - " + Game.gameSettings.GetPlayer(Player.Numb.P2).PlayerName + ": " + board.GetHomePit(Player.Numb.P2).GetStoneAmount());
+        
         return true;
     }
     public virtual Player GetWinner(Board board) 
