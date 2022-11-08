@@ -17,11 +17,6 @@ public class Game
         WarCali
     }
 
-    public Game()
-    {
-
-    }
-
     //methode that starts the game by first asking the player for gamesettings and creating the template from those settings 
     public void StartGame()
     {

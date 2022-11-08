@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 public class BoardFactory 
 { 
-
+    // return a custom board of the right type 
     public Board GetCustomBoard(int pits, int stones, Game.Variant variant)
     {
         if (variant == Game.Variant.Mancala)
@@ -21,6 +21,8 @@ public class BoardFactory
         else 
             return null;
     }
+
+    // return a standerd board of the right type
     public Board GetStanderdBoard(Game.Variant variant)
     {
         if (variant == Game.Variant.Mancala)
