@@ -18,8 +18,8 @@ public class WariTemplate : GameTemplate
                 player.score += EndPit.GetStoneAmount();
                 EndPit.EmptyPit();
             }
-        }
-            return nextPlayer;
+        } 
+        return nextPlayer;
     }
 }
 

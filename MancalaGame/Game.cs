@@ -22,7 +22,7 @@ public class Game
     {
         gameSettings = GetGameSettings();
         gameTemplate = makeGameTemplate(gameSettings.gameVariant);
-        Player winner = gameTemplate.playGame(gameSettings.GameBoard, gameSettings.player1);
+        Player winner = gameTemplate.playGame(gameSettings.GameBoard, gameSettings.player1, gameSettings);
 
         ui.DisplayMessage(gameSettings.GetPlayer(Player.Numb.P1).PlayerName + ": " + gameSettings.player1.score + " - " + gameSettings.GetPlayer(Player.Numb.P2).PlayerName + ": " + gameSettings.player2.score);
         ui.DisplayMessage(winner.PlayerName + " has won! Good Job!");
@@ -41,7 +41,7 @@ public class Game
         string player2Name = ui.AskPlayerName();
 
         Variant gameVariant = ui.AskGameVariant();
-        bool preMadeSettings = ui.AskStanderdOptions();
+        bool preMadeSettings = ui.AskStandardOptions();
         if (preMadeSettings)
         {
             return (new GameSettings(gameVariant, player1Name, player2Name, true));

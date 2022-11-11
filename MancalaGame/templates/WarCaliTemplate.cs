@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 public class WarCaliTemplate :  GameTemplate
 {
+
     public override Player MoveResult(Board board, Player player, Pit EndPit, int chosenPitNumber)
     {
         Player nextPlayer = Game.gameSettings.NextPlayer(player.PlayerNumb);

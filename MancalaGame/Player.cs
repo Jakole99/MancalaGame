@@ -23,5 +23,5 @@ public class Player
         PlayerName = name;
         this.PlayerNumb = PlayerNumb;
     }
-    
+
 }

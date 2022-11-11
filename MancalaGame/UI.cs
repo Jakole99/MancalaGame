@@ -38,23 +38,23 @@ public class UI
         }
     }
 
-    public bool AskStanderdOptions()
+    public bool AskStandardOptions()
     {
-        DisplayMessage("Do you want to use the standerd settings? type Y for yes or N for no");
+        DisplayMessage("Do you want to use the standard settings? type Y for yes or N for no");
 
-        string standerdOptions = GetString();
-        if (standerdOptions.ToUpper() == "Y")
+        string standardOptions = GetString();
+        if (standardOptions.ToUpper() == "Y")
         {
             return true;
         }
-        else if (standerdOptions.ToUpper() == "N")
+        else if (standardOptions.ToUpper() == "N")
         {
             return false;
         }
         else
         {
             DisplayMessage("Invalid options");
-            return AskStanderdOptions();
+            return AskStandardOptions();
         }
     }
 
@@ -93,7 +93,7 @@ public class UI
     }
 
 
-    public int GetInteger()
+    public virtual int GetInteger()
     {
         string? number = Console.ReadLine();
         int numb;

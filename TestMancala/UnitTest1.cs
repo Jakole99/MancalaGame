@@ -39,7 +39,7 @@ public class MoveStonesTest
         int[] testboard = new int[] { 4, 4, 0, 5, 5, 5, 5, 4 };
 
         //act
-        board.MoveStones(2, Player.Numb.P1);
+        board.MoveStones(2, Player.Numb.P2);
 
         //assert
         Assert.Equal(board.Pits[i].GetStoneAmount(), testboard[i]);

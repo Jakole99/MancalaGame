@@ -28,6 +28,21 @@ public class Board
         }
     }
 
+    //Added this method for testing purposes
+    public void ChangeBoard(int[] boardArray)
+    {
+        foreach (Pit p in Pits)
+        {
+            if (!p.IsHomePit)
+                p.EmptyPit();
+        }
+
+        for (int i = 0; i < boardArray.Length; i++)
+        {
+            Pits[i].AddStones(boardArray[i]);
+        }
+    }
+
     //makes the board by assigning pits
     public void MakeBoard(int pitAmount, bool hasHomePit)
     {
@@ -49,7 +64,7 @@ public class Board
             lastPit = pitAmount;
         }
 
-        //loop the first number of non homepit pits to assign an P1 owend empty pit to them
+        //loop the first number of non homepit pits to assign an P1 owned empty pit to them
         for (int i = 0; i < middelPoint; i++)
         {
             Pits[i] = new Pit(0, Player.Numb.P1, false, i);

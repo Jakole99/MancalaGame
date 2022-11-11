@@ -11,31 +11,31 @@ public abstract class GameTemplate
     UI ui = new UI();
     int chosenPitNumber;
 
-    public Player playGame(Board board, Player player)
+    public Player playGame(Board board, Player player, GameSettings gameSettings)
     {
         if (CheckEndCondition(board, player))
         {
-            return GetWinner(board);
+            return GetWinner(gameSettings);
         }
-        chosenPitNumber = ChoosePit(board, player);
+        chosenPitNumber = ChoosePit(board, player, ui, gameSettings);
         lastPit = DoTurn(board, player, chosenPitNumber);
         playersTurn = MoveResult(board, player, lastPit, chosenPitNumber);
-        return playGame(board, playersTurn);
+        return playGame(board, playersTurn, gameSettings);
     }
    
     //Keep asking the player to pick a pit to play from, until it is a valid number. A player cannot play from empty or opponents pit.
-    public virtual int ChoosePit(Board board, Player player)
+    public virtual int ChoosePit(Board board, Player player, UI ui, GameSettings gameSettings)
     {
 
-        board.DrawBoard(Game.gameSettings.GetPlayer(Player.Numb.P1).score, Game.gameSettings.GetPlayer(Player.Numb.P2).score); 
+        board.DrawBoard(gameSettings.GetPlayer(Player.Numb.P1).score, gameSettings.GetPlayer(Player.Numb.P2).score); 
         ui.DisplayMessage(player.PlayerName + " Choose a number to pick a non-empty pit:");
 
-        int chosenNumber =  ui.GetInteger();
+        int chosenNumber = ui.GetInteger();
 
         if (InValidChosenNumber(board, chosenNumber))
         {
             ui.DisplayMessage("Invalid option");
-            return ChoosePit(board, player);
+            return ChoosePit(board, player, ui, gameSettings);
         }
 
         chosenNumber += AdaptPlayerChoice(board, player);
@@ -43,11 +43,12 @@ public abstract class GameTemplate
         if (board.Pits[chosenNumber].GetStoneAmount() == 0)
         {
             ui.DisplayMessage("Can't choose a pit with zero stones");
-            return ChoosePit(board, player);
+            return ChoosePit(board, player, ui, gameSettings);
         }
 
         return chosenNumber;
     }
+
 
     //Player chooses a valid number which has been given.
     public bool InValidChosenNumber(Board board, int chosenNumber)
@@ -97,19 +98,19 @@ public abstract class GameTemplate
         
         return true;
     }
-    public virtual Player GetWinner(Board board) 
+    public virtual Player GetWinner(GameSettings gameSettings) 
     {
-        if (Game.gameSettings.player1.score > Game.gameSettings.player2.score)
+        if (gameSettings.player1.score > gameSettings.player2.score)
         {
-            return Game.gameSettings.GetPlayer(Player.Numb.P1);
+            return gameSettings.GetPlayer(Player.Numb.P1);
         }
-        else if (Game.gameSettings.player1.score == Game.gameSettings.player2.score)
+        else if (gameSettings.player1.score == gameSettings.player2.score)
         {
-            return new Player("Nobody", Player.Numb.None); //It's a draw.
+            return new Player("Nobody", Player.Numb.None);
         }
         else
         {
-            return Game.gameSettings.GetPlayer(Player.Numb.P2);
+            return gameSettings.GetPlayer(Player.Numb.P2);
         }
     }
 }
