@@ -9,14 +9,14 @@ public class Pit
     private Player.Numb owner;
     private int stones;
     public bool IsHomePit = false;
-    public int index;
+    public int Index;
 
 
     public Pit(int stones, Player.Numb owner, bool nyumba, int index)
     {
         this.stones = stones;
         this.owner = owner;
-        this.index = index;
+        this.Index = index;
         IsHomePit = nyumba;
     }
 

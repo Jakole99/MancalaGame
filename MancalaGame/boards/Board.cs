@@ -8,17 +8,16 @@ using System.Threading.Tasks;
 public class Board
 {
     public Pit[] Pits;
-    public bool hasHomePit;
+    public bool HasHomePit;
 
     public Board(int pits, int stones, bool hasHomePit)
     {
-        this.hasHomePit = hasHomePit;
+        this.HasHomePit = hasHomePit;
         Pits = new Pit[pits];
         MakeBoard(pits, hasHomePit);
         FillBoard(stones);
     }
 
-    //fills the pits in the board with stones
     public virtual void FillBoard(int stones)
     {
         foreach (Pit p in Pits)
@@ -46,32 +45,32 @@ public class Board
     //makes the board by assigning pits
     public void MakeBoard(int pitAmount, bool hasHomePit)
     {
-        int middelPoint;
-        int lastPit;
+        int middelPitIndex;
+        int lastPitIndex;
 
-        //assigning homepits and middelpoints/endpoints for the normal pits depending on board format
+        //assigning homepits and middlepits/endpits for the normal pits depending on board format
         if (hasHomePit)
         {
-            middelPoint = (pitAmount - 2) / 2;
-            lastPit = pitAmount - 1;
+            middelPitIndex = (pitAmount - 2) / 2;
+            lastPitIndex = pitAmount - 1;
 
-            Pits[middelPoint] = new Pit(0, Player.Numb.P1, true, middelPoint);
-            Pits[pitAmount - 1] = new Pit(0, Player.Numb.P2, true, lastPit);
+            Pits[middelPitIndex] = new Pit(0, Player.Numb.P1, true, middelPitIndex);
+            Pits[pitAmount - 1] = new Pit(0, Player.Numb.P2, true, lastPitIndex);
         }
         else
         {
-            middelPoint = pitAmount/ 2;
-            lastPit = pitAmount;
+            middelPitIndex = pitAmount/ 2;
+            lastPitIndex = pitAmount;
         }
 
         //loop the first number of non homepit pits to assign an P1 owned empty pit to them
-        for (int i = 0; i < middelPoint; i++)
+        for (int i = 0; i < middelPitIndex; i++)
         {
             Pits[i] = new Pit(0, Player.Numb.P1, false, i);
         }
 
-        //loop the second half of non homepits to assign P2 owend pits
-        for (int j = pitAmount / 2; j < lastPit; j++)
+        //loop the second half of non homepits to assign P2 owned pits
+        for (int j = pitAmount / 2; j < lastPitIndex; j++)
         {
             Pits[j] = new Pit(0, Player.Numb.P2, false, j);
         }
@@ -80,28 +79,28 @@ public class Board
     
     public Pit GetOppositePit(Pit pit)
     {
-        int baseindex;
+        int baseIndex;
         bool halfway;
 
         // assign variables needed for the formula to have a revolving point depending on board format
-        if (hasHomePit)
+        if (HasHomePit)
         {
-            baseindex = Pits.Length - 2;
-            halfway = pit.index < baseindex / 2;
+            baseIndex = Pits.Length - 2;
+            halfway = pit.Index < baseIndex / 2;
         }
         else
         {
-            baseindex = Pits.Length - 1;
-            halfway = pit.index < Pits.Length / 2;
+            baseIndex = Pits.Length - 1;
+            halfway = pit.Index < Pits.Length / 2;
         }
 
         if (halfway)
         {
-            return Pits[pit.index + baseindex - (pit.index * 2)];
+            return Pits[pit.Index + baseIndex - (pit.Index * 2)];
         }
         else
         {
-            return Pits[pit.index - baseindex + (2 * (baseindex - pit.index))];
+            return Pits[pit.Index - baseIndex + (2 * (baseIndex - pit.Index))];
         }
     }
 
@@ -122,7 +121,7 @@ public class Board
         {
             currentIndex = i % Pits.Length;
 
-            // add a move a step to move the stone and skip the addition of one stone
+            // add a step to move the stone and skip the addition of one stone
             if (Pits[currentIndex].GetOwner() != player && Pits[currentIndex].IsHomePit)
             {
                 stoneValue += 1;
@@ -152,7 +151,7 @@ public class Board
         int middelpoint;
         int indexpoint;
 
-        if (hasHomePit)
+        if (HasHomePit)
         {
             middelpoint = (Pits.Length - 2) / 2;
             indexpoint = Pits.Length - 2;
@@ -178,7 +177,7 @@ public class Board
             row9 += getIndexString(i + 1);
         }
 
-        // add the and of the board with the p1 score
+        // add the end of the board with the p1 score
         row1 += "______";
         row2 += "     |";
         row3 += "-----|";
@@ -240,7 +239,7 @@ public class Board
 
     public Pit GetHomePit (Player.Numb player)
     {
-        //If the board has a nyumba, Our code will make the board where the first nyumba is the middle element of the Pit array, and the second nyumba is the last element
+        //Our code will make the board where the first nyumba is the middle element of the Pit array, and the second nyumba is the last element.
         int middleOfTheBoard = (Pits.Length - 1) / 2; 
         int endOfTheBoard = (Pits.Length - 1);
 

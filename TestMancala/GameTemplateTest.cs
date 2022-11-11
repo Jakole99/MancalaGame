@@ -23,7 +23,7 @@ public class GameTemplateTest
             bool answer = gameTemplate.CheckEndCondition(board, player);
 
             //assert
-            Assert.Equal(answer, expectedAnswer);
+            Assert.Equal(expectedAnswer, answer);
         }
 
         [Theory]
@@ -44,7 +44,7 @@ public class GameTemplateTest
             bool answer = gameTemplate.CheckEndCondition(board, player);
 
             //assert
-            Assert.Equal(answer, expectedAnswer);
+            Assert.Equal(expectedAnswer, answer);
         }
 
 
@@ -67,7 +67,7 @@ public class GameTemplateTest
             bool answer = gameTemplate.CheckEndCondition(board, player);
 
             //assert
-            Assert.Equal(answer, expectedAnswer);
+            Assert.Equal(expectedAnswer, answer);
         }
 
     }
@@ -92,8 +92,8 @@ public class GameTemplateTest
 
 
             //act
-            int answer = keyInput - 1;
-            int expectedAnswer = gameTemplate.ChoosePit(board, player, uiMock.Object, gameSettings);
+            int expectedAnswer = keyInput - 1;
+            int answer = gameTemplate.ChoosePit(board, player, uiMock.Object, gameSettings);
 
             //assert
             Assert.Equal(expectedAnswer, answer);
@@ -118,8 +118,8 @@ public class GameTemplateTest
 
 
             //act
-            int answer = keyInput - 1 + (board.Pits.Length/2);
-            int expectedAnswer = gameTemplate.ChoosePit(board, player, uiMock.Object, gameSettings);
+            int expectedAnswer = keyInput - 1 + (board.Pits.Length/2);
+            int answer = gameTemplate.ChoosePit(board, player, uiMock.Object, gameSettings);
 
             //assert
             Assert.Equal(expectedAnswer, answer);
@@ -143,15 +143,15 @@ public class GameTemplateTest
         {
             //arrange
             GameTemplate gameTemplate = new MancalaTemplate();
-            GameSettings gameSettings = new GameSettings(Game.Variant.Mancala, "J", "K", true);
+            GameSettings gameSettings = new GameSettings(Game.Variant.Mancala, "Bob", "Kaan", true);
 
             //act
-            gameSettings.player1.score = scorePlayer1;
-            gameSettings.player2.score = scorePlayer2;
+            gameSettings.Player1.score = scorePlayer1;
+            gameSettings.Player2.score = scorePlayer2;
             Player.Numb answer = gameTemplate.GetWinner(gameSettings).PlayerNumb;
 
             //assert
-            Assert.Equal(answer, expectedAnswer);
+            Assert.Equal(expectedAnswer, answer);
         }
 
         [Theory]
@@ -169,12 +169,12 @@ public class GameTemplateTest
             GameSettings gameSettings = new GameSettings(Game.Variant.Mancala, "J", "K", true);
 
             //act
-            gameSettings.player1.score = scorePlayer1;
-            gameSettings.player2.score = scorePlayer2;
+            gameSettings.Player1.score = scorePlayer1;
+            gameSettings.Player2.score = scorePlayer2;
             Player.Numb answer = gameTemplate.GetWinner(gameSettings).PlayerNumb;
 
             //assert
-            Assert.Equal(answer, expectedAnswer);
+            Assert.Equal(expectedAnswer, answer);
         }
 
         [Theory]
@@ -192,12 +192,12 @@ public class GameTemplateTest
             GameSettings gameSettings = new GameSettings(Game.Variant.Mancala, "J", "K", true);
 
             //act
-            gameSettings.player1.score = scorePlayer1;
-            gameSettings.player2.score = scorePlayer2;
+            gameSettings.Player1.score = scorePlayer1;
+            gameSettings.Player2.score = scorePlayer2;
             Player.Numb answer = gameTemplate.GetWinner(gameSettings).PlayerNumb;
 
             //assert
-            Assert.Equal(answer, expectedAnswer);
+            Assert.Equal(expectedAnswer, answer);
         }
     }
 }

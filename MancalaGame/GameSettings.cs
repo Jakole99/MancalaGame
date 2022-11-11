@@ -6,47 +6,47 @@ using System.Threading.Tasks;
 
 public class GameSettings
 {
-    public Player player1 { get; private set; }
-    public Player player2 { get; private set; }
+    public Player Player1 { get; private set; }
+    public Player Player2 { get; private set; }
     public Board GameBoard;
-    public Game.Variant gameVariant{ get; private set;}
+    public Game.Variant GameVariant{ get; private set;}
 
-    public GameSettings(Game.Variant gameVariant, string player1Name, string player2Name, bool standerd, int pits = 8, int stones = 4)
+    public GameSettings(Game.Variant gameVariant, string player1Name, string player2Name, bool standard, int pits = 8, int stones = 4)
     {
-        this.gameVariant = gameVariant;
-        makePlayers(player1Name, player2Name);
-        makeBoard(pits, stones, gameVariant, standerd);
+        this.GameVariant = gameVariant;
+        MakePlayers(player1Name, player2Name);
+        MakeBoard(pits, stones, gameVariant, standard);
     }
 
     public Player GetPlayer(Player.Numb playerNumb)
     {
         if (playerNumb == Player.Numb.P1)
-            return player1;
+            return Player1;
         else
-            return player2;
+            return Player2;
     }
 
     public Player NextPlayer(Player.Numb playerNumb)
     {
         if (playerNumb == Player.Numb.P1)
-            return player2;
+            return Player2;
         else
-            return player1;
+            return Player1;
     }
 
-    private void makePlayers(string player1Name, string player2Name)
+    private void MakePlayers(string player1Name, string player2Name)
     {
-        player1 = new Player(player1Name, Player.Numb.P1);
+        Player1 = new Player(player1Name, Player.Numb.P1);
 
-        player2 = new Player(player2Name, Player.Numb.P2);
+        Player2 = new Player(player2Name, Player.Numb.P2);
     }
 
-    private void makeBoard(int pits, int stones, Game.Variant variant, bool standerd)
+    private void MakeBoard(int pits, int stones, Game.Variant variant, bool standerd)
     {
         BoardFactory boardFactory = new BoardFactory();
         if (standerd)
         {
-            GameBoard = boardFactory.GetStanderdBoard(variant);
+            GameBoard = boardFactory.GetStandardBoard(variant);
         }
         else
         {
