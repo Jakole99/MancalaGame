@@ -113,7 +113,6 @@ public class Board
         stoneValue = Pits[startIndex].GetStoneAmount();
         Pits[startIndex].EmptyPit();
 
-        //assign return value
         int currentIndex = startIndex;
 
         //loop for the amount of stones that are being moved and keep the actual index looping by using modulos of the pit amount
