@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class BoardFactory 
-{ 
+public class BoardFactory
+{
+    private readonly int standardPitAmountManacala = 8;
+    private readonly int standardPitAmountWari = 6;
+    private readonly int standardStoneAmount = 4;
 
     public Board GetCustomBoard(int pits, int stones, Game.Variant variant)
     {
@@ -23,11 +26,11 @@ public class BoardFactory
     public Board GetStandardBoard(Game.Variant variant)
     {
         if (variant == Game.Variant.Mancala)
-            return new Board(8, 4, true);
+            return new Board(standardPitAmountManacala, standardStoneAmount, true);
         if (variant == Game.Variant.Wari)
-            return new Board(6, 4, false);
+            return new Board(standardPitAmountWari, standardStoneAmount, false);
         if (variant == Game.Variant.WarCali)
-            return new Board(6, 4,true);
+            return new Board(standardPitAmountWari, standardStoneAmount,true);
         return null;
     }
 

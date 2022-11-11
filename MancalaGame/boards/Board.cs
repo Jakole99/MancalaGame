@@ -202,7 +202,9 @@ public class Board
     // helper function that takes an int and returns a string of an index of the right size for the draw function
     private string getIndexString(int numb)
     {
-        if (numb > 9999)
+        int upperBound = 9999;
+
+        if (numb > upperBound)
             return "9999: ";
         else if (numb < 0)
             return "0:    ";
@@ -220,7 +222,9 @@ public class Board
     // helper function that takes a int and returns a string of length three to be used in the draw function
     private string numbToString(int numb)
     {
-        if (numb > 999)
+        int upperBound = 999;
+
+        if (numb > upperBound)
             return "999";
         else if (numb < 0)
             return "  0";

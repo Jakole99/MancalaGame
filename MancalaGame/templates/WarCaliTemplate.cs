@@ -42,7 +42,7 @@ public class WarCaliTemplate :  GameTemplate
         //These are the rules of the Wari game.
         if (EndPit.GetOwner() == nextPlayer.PlayerNumb)
         {
-            if (EndPit.GetStoneAmount() == 2 || EndPit.GetStoneAmount() == 3)
+            if (EndPit.GetStoneAmount() == 2 || EndPit.GetStoneAmount() == 3)   //3 might be a magic number, but its much simpler.
             {
                 board.GetHomePit(player.PlayerNumb).AddStones(EndPit.GetStoneAmount());
                 UpdateScore(player, board);
