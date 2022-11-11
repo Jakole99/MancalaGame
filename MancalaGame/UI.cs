@@ -18,16 +18,16 @@ public class UI
         DisplayMessage("Please select which game you want to play, enter M/W/WC for Mancala, Wari or WarCali respectively");
         string? gameVariant = Console.ReadLine();
         
-        string GAMEVARIANT = gameVariant.ToUpper();
-        if (GAMEVARIANT == "M")
+        string gameVariantUpper = gameVariant.ToUpper();
+        if (gameVariantUpper == "M")
         {
             return Game.Variant.Mancala;
         }
-        else if (GAMEVARIANT == "W")
+        else if (gameVariantUpper == "W")
         {
             return Game.Variant.Wari;
         }
-        else if (GAMEVARIANT == "WC")
+        else if (gameVariantUpper == "WC")
         {
             return Game.Variant.WarCali;
         }
@@ -60,7 +60,7 @@ public class UI
 
     public int AskPitAmount()
     {
-        DisplayMessage("Please enter an even amount of pits that is greater 2 you would like to use (homepits count as pits):");
+        DisplayMessage("Please enter an even amount of pits that is greater than 2, you would like to use (homepits count as pits):");
 
         int pits = GetInteger();
 
