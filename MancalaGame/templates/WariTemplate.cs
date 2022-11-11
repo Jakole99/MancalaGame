@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 public class WariTemplate : GameTemplate
 {
 
-    public override Player MoveResult(Board board, Player player, Pit EndPit, int chosenNumber) 
+    public override Player MoveResult(Board board, Player player, Pit EndPit, int chosenNumber, GameSettings gameSettings) 
     {
-        Player nextPlayer = Game.gameSettings.NextPlayer(player.PlayerNumb);
+        Player nextPlayer = gameSettings.NextPlayer(player.PlayerNumb);
         
         //These are the rules of the Wari game. Which will check if the last stone ended in an opponents pit with initially 1 or 2 stones.
         if (EndPit.GetOwner() == nextPlayer.PlayerNumb)
