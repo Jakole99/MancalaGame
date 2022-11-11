@@ -8,6 +8,7 @@ public abstract class GameTemplate
 {
     Pit lastPit;
     Player playersTurn;
+    UI ui = new UI();
     int chosenPitNumber;
 
     public Player playGame(Board board, Player player)
@@ -27,34 +28,25 @@ public abstract class GameTemplate
     {
 
         board.DrawBoard(Game.gameSettings.GetPlayer(Player.Numb.P1).score, Game.gameSettings.GetPlayer(Player.Numb.P2).score); 
-        Console.WriteLine(player.PlayerName + " Choose a number to pick a non-empty pit:");
+        ui.DisplayMessage(player.PlayerName + " Choose a number to pick a non-empty pit:");
 
+        int chosenNumber =  ui.GetInteger();
 
-        string? chooseNumber = Console.ReadLine();
-        if (int.TryParse(chooseNumber, out int chosenNumber))
+        if (InValidChosenNumber(board, chosenNumber))
         {
-
-            if (InValidChosenNumber(board, chosenNumber))
-            {
-                Console.WriteLine("Invalid option");
-                return ChoosePit(board, player);
-            }
-
-
-            chosenNumber += AdaptPlayerChoice(board, player);
-
-
-            if (board.Pits[chosenNumber].GetStoneAmount() == 0)
-            {
-                Console.WriteLine("Can't choose a pit with zero stones");
-                return ChoosePit(board, player);
-            }
-
-            return chosenNumber;
+            ui.DisplayMessage("Invalid option");
+            return ChoosePit(board, player);
         }
 
-        Console.WriteLine("Invalid option");
-        return ChoosePit(board, player);
+        chosenNumber += AdaptPlayerChoice(board, player);
+
+        if (board.Pits[chosenNumber].GetStoneAmount() == 0)
+        {
+            ui.DisplayMessage("Can't choose a pit with zero stones");
+            return ChoosePit(board, player);
+        }
+
+        return chosenNumber;
     }
 
     //Player chooses a valid number which has been given.
@@ -102,7 +94,7 @@ public abstract class GameTemplate
             if (pit.GetStoneAmount() != 0)
                 return false;
         }
-        Console.WriteLine(Game.gameSettings.GetPlayer(Player.Numb.P1).PlayerName + ": " + board.GetHomePit(Player.Numb.P1).GetStoneAmount() + " - " + Game.gameSettings.GetPlayer(Player.Numb.P2).PlayerName + ": " + board.GetHomePit(Player.Numb.P2).GetStoneAmount());
+        
         return true;
     }
     public virtual Player GetWinner(Board board) 
