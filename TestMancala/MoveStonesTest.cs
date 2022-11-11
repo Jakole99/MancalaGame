@@ -10,12 +10,11 @@ public class MoveStonesTest
     [InlineData(4, 1, true, 0, Player.Numb.P1, new int[] {0, 1, 1, 0})]
     [InlineData(4, 1, true, 2, Player.Numb.P2, new int[] {1,0,0,1})]
 
-    public void MoveStonesTest1(int pits, int stones, bool hasHomePit, int moveFrom, Player.Numb playerNumb, int[] expectedanswer)
+    public void MoveStonesTest1(int pits, int stones, bool hasHomePit, int moveFrom, Player.Numb playerNumb, int[] expectedAnswer)
     {
         
         //arrange
         Board board = new Board(pits, stones, hasHomePit);
-        int[] expectedAnswer = expectedanswer;
         int[] intBoard;
 
         //act
@@ -23,7 +22,7 @@ public class MoveStonesTest
         intBoard = Array.ConvertAll(board.Pits, Pit => Pit.GetStoneAmount());
 
         //assert
-        Assert.Equal(intBoard, expectedAnswer);
+        Assert.Equal(expectedAnswer, intBoard);
     }
 }
 
@@ -38,34 +37,20 @@ public class GetOppositeTest
     [InlineData(6, true, 4, 0)]
     [InlineData(6, false, 2, 3)]
     [InlineData(6, false, 3, 2)]
-    public void getOppositeTest1(int pits, bool hasHomePit, int chosenIndex, int excpectedOpposite)
+    public void GetOppositeTest1(int pits, bool hasHomePit, int chosenIndex, int expectedOpposite)
     {
         //arrange
         Board board = new Board(pits, 4, hasHomePit);
-        Pit expectedPit = board.Pits[excpectedOpposite];
+        Pit expectedPit = board.Pits[expectedOpposite];
 
         //act
         Pit oppositPit = board.GetOppositePit(board.Pits[chosenIndex]);
 
         //assert
-        Assert.Equal(oppositPit, expectedPit);
+        Assert.Equal(expectedPit, oppositPit);
     }
 }
 
-public class DrawBoardTest
-{
-    [Theory]
-    [InlineData(0, "0:    ")]
-    public void DawBoardTest(int number, string expectedString)
-    {
-        //arrange 
-        Board board = new Board(2, 3, true);
-
-        //act
-        TextWriter t = new StringWriter();
-        
-    }
-}
 
 
 

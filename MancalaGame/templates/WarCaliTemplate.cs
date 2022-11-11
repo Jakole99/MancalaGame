@@ -18,14 +18,12 @@ public class WarCaliTemplate :  GameTemplate
             return player;
         }
 
-        //Last Stone ends in an empty pit of the player, it check if the opposite pit of the opponent is empty or not.
-        if (EndPit.GetStoneAmount() == 1 && EndPit.GetOwner() == player.PlayerNumb)  //The Last stone ended in here, that's why we check for == 1.
+        if (EndPit.GetStoneAmount() == 1 && EndPit.GetOwner() == player.PlayerNumb) 
         {
             int oppositeStoneAmount = board.GetOppositePit(EndPit).GetStoneAmount();
 
             if (oppositeStoneAmount != 0)
             {
-
                 board.GetHomePit(player.PlayerNumb).AddStones(oppositeStoneAmount);
                 board.GetHomePit(player.PlayerNumb).AddStones(1);
                 board.GetOppositePit(EndPit).EmptyPit();
@@ -35,7 +33,7 @@ public class WarCaliTemplate :  GameTemplate
  
 
         //This is the rule we made up. If the last stone ends in the pit it started from, the player may play again. 
-        if (EndPit.index == chosenPitNumber)
+        if (EndPit.Index == chosenPitNumber)
         {
             UpdateScore(player, board);
             return player;

@@ -6,33 +6,29 @@ using System.Threading.Tasks;
 
 public class BoardFactory 
 { 
-    // return a custom board of the right type 
+
     public Board GetCustomBoard(int pits, int stones, Game.Variant variant)
     {
         if (variant == Game.Variant.Mancala)
             return new Board(pits, stones, true);
 
-        else if (variant == Game.Variant.Wari)
+        if (variant == Game.Variant.Wari)
             return new Board(pits, stones, false);
 
-        else if (variant == Game.Variant.WarCali)
+        if (variant == Game.Variant.WarCali)
             return new Board(pits, stones, true);
-
-        else 
-            return null;
+        return null;
     }
 
-    // return a standerd board of the right type
-    public Board GetStanderdBoard(Game.Variant variant)
+    public Board GetStandardBoard(Game.Variant variant)
     {
         if (variant == Game.Variant.Mancala)
             return new Board(8, 4, true);
-        else if (variant == Game.Variant.Wari)
+        if (variant == Game.Variant.Wari)
             return new Board(6, 4, false);
-        else if (variant == Game.Variant.WarCali)
+        if (variant == Game.Variant.WarCali)
             return new Board(6, 4,true);
-        else
-            return null;
+        return null;
     }
 
 }

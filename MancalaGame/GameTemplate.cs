@@ -11,6 +11,7 @@ public abstract class GameTemplate
     UI ui = new UI();
     int chosenPitNumber;
 
+    //The template method, using recursion to keep the game running.
     public Player playGame(Board board, Player player, GameSettings gameSettings)
     {
         if (CheckEndCondition(board, player))
@@ -50,7 +51,7 @@ public abstract class GameTemplate
     }
 
 
-    //Player chooses a valid number which has been given.
+    //Player chooses a valid number which has been given on the screen.
     public bool InValidChosenNumber(Board board, int chosenNumber)
     {
         if (chosenNumber <= 0)
@@ -58,12 +59,12 @@ public abstract class GameTemplate
             return true;
         }
 
-        if (chosenNumber > (board.Pits.Length - 2) / 2 && board.hasHomePit)
+        if (chosenNumber > (board.Pits.Length - 2) / 2 && board.HasHomePit)
         {
             return true;
         }
 
-        if (chosenNumber > board.Pits.Length / 2 && !board.hasHomePit)
+        if (chosenNumber > board.Pits.Length / 2 && !board.HasHomePit)
         {
             return true;
         }
@@ -100,11 +101,11 @@ public abstract class GameTemplate
     }
     public virtual Player GetWinner(GameSettings gameSettings) 
     {
-        if (gameSettings.player1.score > gameSettings.player2.score)
+        if (gameSettings.Player1.score > gameSettings.Player2.score)
         {
             return gameSettings.GetPlayer(Player.Numb.P1);
         }
-        else if (gameSettings.player1.score == gameSettings.player2.score)
+        else if (gameSettings.Player1.score == gameSettings.Player2.score)
         {
             return new Player("Nobody", Player.Numb.None);
         }
