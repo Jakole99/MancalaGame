@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 public class Game
 {
     private UI ui = new UI();
-    static public GameSettings gameSettings;
+    public GameSettings gameSettings;
     private GameTemplate gameTemplate;
 
     public enum Variant

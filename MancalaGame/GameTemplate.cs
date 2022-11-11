@@ -19,7 +19,7 @@ public abstract class GameTemplate
         }
         chosenPitNumber = ChoosePit(board, player, ui, gameSettings);
         lastPit = DoTurn(board, player, chosenPitNumber);
-        playersTurn = MoveResult(board, player, lastPit, chosenPitNumber);
+        playersTurn = MoveResult(board, player, lastPit, chosenPitNumber, gameSettings);
         return playGame(board, playersTurn, gameSettings);
     }
    
@@ -87,7 +87,7 @@ public abstract class GameTemplate
         return board.MoveStones(chosenNumber, player.PlayerNumb);
     }
 
-    public abstract Player MoveResult(Board board, Player player, Pit EndPit, int chosenPitNumber);
+    public abstract Player MoveResult(Board board, Player player, Pit EndPit, int chosenPitNumber, GameSettings gameSettings);
     public virtual bool CheckEndCondition(Board board, Player player) 
     {
         foreach (Pit pit in board.Pits.Where(n => n.IsHomePit == false && n.GetOwner() == player.PlayerNumb))

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 public class MancalaTemplate : GameTemplate
 {
 
-    public override Player MoveResult(Board board, Player player, Pit EndPit, int chosenPitNumber)
+    public override Player MoveResult(Board board, Player player, Pit EndPit, int chosenPitNumber, GameSettings gameSettings)
     {
         //We use the recursion rule of mancala.
         EndPit = ContinueMove(board, player, EndPit);
@@ -50,7 +50,7 @@ public class MancalaTemplate : GameTemplate
         // Its the opponents pit
 
             UpdateScore(player, board);
-            return Game.gameSettings.NextPlayer(player.PlayerNumb);      //Last Stone ends in an empty Pit of the opponent. Next players turn.
+            return gameSettings.NextPlayer(player.PlayerNumb);      //Last Stone ends in an empty Pit of the opponent. Next players turn.
 
 
     }

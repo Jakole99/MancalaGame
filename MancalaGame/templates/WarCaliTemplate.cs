@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 public class WarCaliTemplate :  GameTemplate
 {
 
-    public override Player MoveResult(Board board, Player player, Pit EndPit, int chosenPitNumber)
+    public override Player MoveResult(Board board, Player player, Pit EndPit, int chosenPitNumber, GameSettings gameSettings)
     {
-        Player nextPlayer = Game.gameSettings.NextPlayer(player.PlayerNumb);
+        Player nextPlayer = gameSettings.NextPlayer(player.PlayerNumb);
 
         //These are some of the rules of Mancala.
         if (EndPit.IsHomePit)
