@@ -44,8 +44,8 @@ public class MancalaTemplate : GameTemplate
 
         }
 
-            UpdateScore(player, board);
-            return Game.gameSettings.NextPlayer(player.PlayerNumb);      
+        UpdateScore(player, board);
+        return gameSettings.NextPlayer(player.PlayerNumb);      
 
 
     }
