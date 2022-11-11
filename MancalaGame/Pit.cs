@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 public class Pit
 {
-    private Player.Numb _owner;
+    private Player.Numb owner;
     private int stones;
     public bool IsHomePit = false;
     public int index;
@@ -15,7 +15,7 @@ public class Pit
     public Pit(int stones, Player.Numb owner, bool nyumba, int index)
     {
         this.stones = stones;
-        this._owner = owner;
+        this.owner = owner;
         this.index = index;
         IsHomePit = nyumba;
     }
@@ -27,7 +27,7 @@ public class Pit
 
     public Player.Numb GetOwner()
     {
-        return _owner;
+        return owner;
     }
 
     public void AddStones(int amount)

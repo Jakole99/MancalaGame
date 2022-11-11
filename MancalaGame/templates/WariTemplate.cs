@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-class WariTemplate : GameTemplate
+public class WariTemplate : GameTemplate
 {
 
     public override Player MoveResult(Board board, Player player, Pit EndPit, int chosenNumber) 
