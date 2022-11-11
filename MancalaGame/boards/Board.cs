@@ -45,26 +45,26 @@ public class Board
     //makes the board by assigning pits
     public void MakeBoard(int pitAmount, bool hasHomePit)
     {
-        int middelPitIndex;
+        int middlePitIndex;
         int lastPitIndex;
 
-        //assigning homepits and middlepits/endpits for the normal pits depending on board format
+        //assigning HomePits and middlePits/endPits for the normal pits depending on board format
         if (hasHomePit)
         {
-            middelPitIndex = (pitAmount - 2) / 2;
+            middlePitIndex = (pitAmount - 2) / 2;
             lastPitIndex = pitAmount - 1;
 
-            Pits[middelPitIndex] = new Pit(0, Player.Numb.P1, true, middelPitIndex);
+            Pits[middlePitIndex] = new Pit(0, Player.Numb.P1, true, middlePitIndex);
             Pits[pitAmount - 1] = new Pit(0, Player.Numb.P2, true, lastPitIndex);
         }
         else
         {
-            middelPitIndex = pitAmount/ 2;
+            middlePitIndex = pitAmount/ 2;
             lastPitIndex = pitAmount;
         }
 
-        //loop the first number of non homepit pits to assign an P1 owned empty pit to them
-        for (int i = 0; i < middelPitIndex; i++)
+        //loop the first number of non HomePit pits to assign an P1 owned empty pit to them
+        for (int i = 0; i < middlePitIndex; i++)
         {
             Pits[i] = new Pit(0, Player.Numb.P1, false, i);
         }
