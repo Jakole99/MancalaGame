@@ -82,6 +82,7 @@ public abstract class GameTemplate
         return (board.Pits.Length / 2) - 1;
     }
 
+
     public virtual Pit DoTurn(Board board, Player player,int chosenNumber) 
     {
         return board.MoveStones(chosenNumber, player.PlayerNumb);
