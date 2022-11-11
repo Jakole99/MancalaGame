@@ -19,18 +19,18 @@ public class MancalaTemplateTest
     public void MoveResultMancalaTest(int[] pits, int indexFinalPit, Player.Numb playersTurn, Player.Numb ExpectedplayerNumb, int[] transformed)
     {
         //Arrange
-        Board board = new BoardFactory().GetCustomBoard(8, 6, Game.Variant.Mancala);
-        board.ChangeBoard(pits);
+       
         GameTemplate GameTemplate = new MancalaTemplate();
-        GameSettings gameSettings = new GameSettings(Game.Variant.Mancala, "bob", "pop", false);
-
+        GameSettings gameSettings = new GameSettings(Game.Variant.Mancala, "bob", "pop", false, 8, 6);
+        gameSettings.GameBoard.ChangeBoard(pits);
+        
         //Act
-        Player result = GameTemplate.MoveResult(board, gameSettings.GetPlayer(playersTurn), board.Pits[indexFinalPit], 0, gameSettings);
+        Player result = GameTemplate.MoveResult(gameSettings.GetPlayer(playersTurn), gameSettings.GameBoard.Pits[indexFinalPit], 0, gameSettings);
 
         //Assert
         //Assertion that determinse for the right return player
         Assert.Equal(gameSettings.GetPlayer(ExpectedplayerNumb), result);
-        int[] intBoard = Array.ConvertAll(board.Pits, Pit => Pit.GetStoneAmount());
+        int[] intBoard = Array.ConvertAll(gameSettings.GameBoard.Pits, Pit => Pit.GetStoneAmount());
 
         //Assertion for the right board transformation
         Assert.Equal(intBoard, transformed);
@@ -51,18 +51,18 @@ public class WariTemplateTest
     public void WariMoveResultWariTest(int[] pits, int indexFinalPit, Player.Numb playersTurn, Player.Numb ExpectedplayerNumb, int[] transformed)
     {
         //Arrange
-        Board board = new BoardFactory().GetCustomBoard(8, 6, Game.Variant.Wari);
-        board.ChangeBoard(pits);
+        
         GameTemplate GameTemplate = new WariTemplate();
-        GameSettings gameSettings = new GameSettings(Game.Variant.WarCali, "Walter", "Maluigi", false);
+        GameSettings gameSettings = new GameSettings(Game.Variant.WarCali, "Walter", "Maluigi", false, 8, 6);
+        gameSettings.GameBoard.ChangeBoard(pits);
 
         // Act
-        Player result = GameTemplate.MoveResult(board, gameSettings.GetPlayer(playersTurn), board.Pits[indexFinalPit], 0, gameSettings);
+        Player result = GameTemplate.MoveResult(gameSettings.GetPlayer(playersTurn), gameSettings.GameBoard.Pits[indexFinalPit], 0, gameSettings);
 
         //Assert
         //Assertion that determinse for the right return player
         Assert.Equal(gameSettings.GetPlayer(ExpectedplayerNumb), result);
-        int[] intBoard = Array.ConvertAll(board.Pits, Pit => Pit.GetStoneAmount());
+        int[] intBoard = Array.ConvertAll(gameSettings.GameBoard.Pits, Pit => Pit.GetStoneAmount());
 
         //Assertion for the right board transformation
         Assert.Equal(intBoard, transformed);
@@ -81,18 +81,18 @@ public class WarCaliTemplateTest
     public void MoveResultTestWariCaliTest(int[] pits, int indexFinalPit, Player.Numb playersTurn, Player.Numb ExpectedplayerNumb, int[] transformed, int chosenPitNumber)
     {
         //Arrange
-        Board board = new BoardFactory().GetCustomBoard(8, 6, Game.Variant.WarCali);
-        board.ChangeBoard(pits);
+        
         GameTemplate GameTemplate = new WarCaliTemplate();
-        GameSettings gameSettings = new GameSettings(Game.Variant.WarCali, "Wari", "Cali", false);
+        GameSettings gameSettings = new GameSettings(Game.Variant.WarCali, "Wari", "Cali", false, 8, 6);
+        gameSettings.GameBoard.ChangeBoard(pits);
 
         //Act
-        Player result = GameTemplate.MoveResult(board, gameSettings.GetPlayer(playersTurn), board.Pits[indexFinalPit], chosenPitNumber, gameSettings);
+        Player result = GameTemplate.MoveResult(gameSettings.GetPlayer(playersTurn), gameSettings.GameBoard.Pits[indexFinalPit], chosenPitNumber, gameSettings);
 
         //Assert
         //Assertion that determinse for the right return player
         Assert.Equal(gameSettings.GetPlayer(ExpectedplayerNumb), result);
-        int[] intBoard = Array.ConvertAll(board.Pits, Pit => Pit.GetStoneAmount());
+        int[] intBoard = Array.ConvertAll(gameSettings.GameBoard.Pits, Pit => Pit.GetStoneAmount());
 
         //Assertion for the right board transformation
         Assert.Equal(intBoard, transformed);

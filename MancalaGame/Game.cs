@@ -21,7 +21,7 @@ public class Game
     {
         gameSettings = GetGameSettings();
         gameTemplate = MakeGameTemplate(gameSettings.GameVariant);
-        Player winner = gameTemplate.playGame(gameSettings.GameBoard, gameSettings.Player1, gameSettings);
+        Player winner = gameTemplate.playGame(gameSettings.Player1, gameSettings);
 
         ui.DisplayMessage(gameSettings.GetPlayer(Player.Numb.P1).PlayerName + ": " + gameSettings.Player1.score + " - " + gameSettings.GetPlayer(Player.Numb.P2).PlayerName + ": " + gameSettings.Player2.score);
         ui.DisplayMessage(winner.PlayerName + " has won! Good Job!");

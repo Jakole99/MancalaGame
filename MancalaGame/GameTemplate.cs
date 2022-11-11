@@ -12,39 +12,38 @@ public abstract class GameTemplate
     int chosenPitNumber;
 
     //The template method, using recursion to keep the game running.
-    public Player playGame(Board board, Player player, GameSettings gameSettings)
+    public Player playGame(Player player, GameSettings gameSettings)
     {
-        if (CheckEndCondition(board, player))
+        if (CheckEndCondition(gameSettings.GameBoard, player))
         {
             return GetWinner(gameSettings);
         }
-        chosenPitNumber = ChoosePit(board, player, ui, gameSettings);
-        lastPit = DoTurn(board, player, chosenPitNumber);
-        playersTurn = MoveResult(board, player, lastPit, chosenPitNumber, gameSettings);
-        return playGame(board, playersTurn, gameSettings);
+        chosenPitNumber = ChoosePit(player, ui, gameSettings);
+        lastPit = DoTurn(gameSettings.GameBoard, player, chosenPitNumber);
+        playersTurn = MoveResult(player, lastPit, chosenPitNumber, gameSettings);
+        return playGame(playersTurn, gameSettings);
     }
    
     //Keep asking the player to pick a pit to play from, until it is a valid number. A player cannot play from empty or opponents pit.
-    public virtual int ChoosePit(Board board, Player player, UI ui, GameSettings gameSettings)
+    public virtual int ChoosePit(Player player, UI ui, GameSettings gameSettings)
     {
-
-        board.DrawBoard(gameSettings.GetPlayer(Player.Numb.P1).score, gameSettings.GetPlayer(Player.Numb.P2).score); 
+        gameSettings.GameBoard.DrawBoard(gameSettings.GetPlayer(Player.Numb.P1).score, gameSettings.GetPlayer(Player.Numb.P2).score); 
         ui.DisplayMessage(player.PlayerName + " Choose a number to pick a non-empty pit:");
 
         int chosenNumber = ui.GetInteger();
 
-        if (InValidChosenNumber(board, chosenNumber))
+        if (InValidChosenNumber(gameSettings.GameBoard, chosenNumber))
         {
             ui.DisplayMessage("Invalid option");
-            return ChoosePit(board, player, ui, gameSettings);
+            return ChoosePit(player, ui, gameSettings);
         }
 
-        chosenNumber += AdaptPlayerChoice(board, player);
+        chosenNumber += AdaptPlayerChoice(gameSettings.GameBoard, player);
 
-        if (board.Pits[chosenNumber].GetStoneAmount() == 0)
+        if (gameSettings.GameBoard.Pits[chosenNumber].GetStoneAmount() == 0)
         {
             ui.DisplayMessage("Can't choose a pit with zero stones");
-            return ChoosePit(board, player, ui, gameSettings);
+            return ChoosePit(player, ui, gameSettings);
         }
 
         return chosenNumber;
@@ -88,7 +87,7 @@ public abstract class GameTemplate
         return board.MoveStones(chosenNumber, player.PlayerNumb);
     }
 
-    public abstract Player MoveResult(Board board, Player player, Pit EndPit, int chosenPitNumber, GameSettings gameSettings);
+    public abstract Player MoveResult(Player player, Pit EndPit, int chosenPitNumber, GameSettings gameSettings);
     public virtual bool CheckEndCondition(Board board, Player player) 
     {
         foreach (Pit pit in board.Pits.Where(n => n.IsHomePit == false && n.GetOwner() == player.PlayerNumb))

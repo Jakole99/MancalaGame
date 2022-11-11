@@ -82,7 +82,6 @@ public class GameTemplateTest
         public void ChoosePitTest1(int keyInput)
         {
             //Arrange
-            Board board = new Board(8, 4, true);
             Player player = new Player("Mike", Player.Numb.P1);
             GameTemplate gameTemplate = new MancalaTemplate();
             GameSettings gameSettings = new GameSettings(Game.Variant.Mancala, "Mike", "Erik", true);
@@ -93,7 +92,7 @@ public class GameTemplateTest
 
             //act
             int expectedAnswer = keyInput - 1;
-            int answer = gameTemplate.ChoosePit(board, player, uiMock.Object, gameSettings);
+            int answer = gameTemplate.ChoosePit(player, uiMock.Object, gameSettings);
 
             //assert
             Assert.Equal(expectedAnswer, answer);
@@ -108,7 +107,6 @@ public class GameTemplateTest
         public void ChoosePitTest2(int keyInput)
         {
             //Arrange
-            Board board = new Board(8, 4, true);
             Player player = new Player("Jan", Player.Numb.P2);
             GameTemplate gameTemplate = new WariTemplate();
             GameSettings gameSettings = new GameSettings(Game.Variant.Mancala, "Jan", "Tom", true);
@@ -118,8 +116,8 @@ public class GameTemplateTest
 
 
             //act
-            int expectedAnswer = keyInput - 1 + (board.Pits.Length/2);
-            int answer = gameTemplate.ChoosePit(board, player, uiMock.Object, gameSettings);
+            int expectedAnswer = keyInput - 1 + (gameSettings.GameBoard.Pits.Length/2);
+            int answer = gameTemplate.ChoosePit(player, uiMock.Object, gameSettings);
 
             //assert
             Assert.Equal(expectedAnswer, answer);

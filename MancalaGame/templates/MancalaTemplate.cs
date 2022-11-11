@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 public class MancalaTemplate : GameTemplate
 {
 
-    public override Player MoveResult(Board board, Player player, Pit EndPit, int chosenPitNumber, GameSettings gameSettings)
+    public override Player MoveResult(Player player, Pit EndPit, int chosenPitNumber, GameSettings gameSettings)
     {
         //We use the recursion rule of Mancala.
-        EndPit = ContinueMove(board, player, EndPit);
+        EndPit = ContinueMove(gameSettings.GameBoard, player, EndPit);
 
 
         //Now we check what happens next, what is the result of that move which has been played.
         //Last Stone ends in Nyumba of the player. Player can play again.
         if (EndPit.IsHomePit)
         {
-            UpdateScore(player, board);
+            UpdateScore(player, gameSettings.GameBoard);
             return player;
         }
         
@@ -26,17 +26,17 @@ public class MancalaTemplate : GameTemplate
         //Last Stone ends in an empty pit and it is the players pit.
         if (EndPit.GetStoneAmount() == 1 && EndPit.GetOwner() == player.PlayerNumb)  //The Last stone ended in here, that's why we check for == 1.
         {
-            int oppositeStoneAmount = board.GetOppositePit(EndPit).GetStoneAmount();
+            int oppositeStoneAmount = gameSettings.GameBoard.GetOppositePit(EndPit).GetStoneAmount();
 
             //Last Stone ends in an empty Pit of the player and the opposite pit of the opponent is not empty,
             //player grabs all stones from these two pits and collects them in their Nyumba.
             
             if (oppositeStoneAmount != 0)
             {
-                board.GetOppositePit(EndPit).EmptyPit();
+                gameSettings.GameBoard.GetOppositePit(EndPit).EmptyPit();
 
-                board.GetHomePit(player.PlayerNumb).AddStones(oppositeStoneAmount);
-                board.GetHomePit(player.PlayerNumb).AddStones(1);
+                gameSettings.GameBoard.GetHomePit(player.PlayerNumb).AddStones(oppositeStoneAmount);
+                gameSettings.GameBoard.GetHomePit(player.PlayerNumb).AddStones(1);
 
                 EndPit.EmptyPit();
 
@@ -44,7 +44,7 @@ public class MancalaTemplate : GameTemplate
 
         }
 
-        UpdateScore(player, board);
+        UpdateScore(player, gameSettings.GameBoard);
         return gameSettings.NextPlayer(player.PlayerNumb);      
 
 
